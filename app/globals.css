@@ -30,6 +30,18 @@
   --radius-md: calc(var(--radius) * .8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
+
+  /* Token khusus TOWA, dipakai section-section (bukan token shadcn generik di atas).
+     Nilainya ambil dari CSS variable di :root / [data-theme="cyberpunk"] di bawah,
+     jadi tinggal ganti attribute data-theme di <html>, semua ini otomatis ikut ganti. */
+  --color-towa-bg: var(--towa-bg);
+  --color-towa-bg-alt: var(--towa-bg-alt);
+  --color-towa-text: var(--towa-text);
+  --color-towa-text-muted: var(--towa-text-muted);
+  --color-towa-border: var(--towa-border);
+  --color-towa-accent: var(--towa-accent);
+  --color-towa-accent-2: var(--towa-accent-2);
+  --color-towa-ink: var(--towa-ink);
 }
 
 :root {
@@ -53,6 +65,30 @@
   --input: oklch(0.87 0.06 88);
   --ring: oklch(0.68 0.16 49);
   --radius: 0.85rem;
+
+  /* Mode normal (default) — nilai persis dari palet TOWA yang sudah dipakai di sections.tsx */
+  --towa-bg: #fffdf7;
+  --towa-bg-alt: #fff9ec;
+  --towa-text: #1a1a1a;
+  --towa-text-muted: #756d5c;
+  --towa-border: #ead9ad;
+  --towa-accent: #f5c518;
+  --towa-accent-2: #e8833a;
+  --towa-ink: #1a1a1a;
+}
+
+/* Skeleton mode cyberpunk — placeholder dulu (Tahap 0), detail visual lengkap
+   digarap di Tahap 2. Yang penting sekarang: mekanisme switch-nya sudah nyambung. */
+[data-theme="cyberpunk"] {
+  color-scheme: dark;
+  --towa-bg: #0a0a12;
+  --towa-bg-alt: #12121e;
+  --towa-text: #e8fbff;
+  --towa-text-muted: #7d8bab;
+  --towa-border: #2a2a4a;
+  --towa-accent: #ff2fd6;
+  --towa-accent-2: #2fe8ff;
+  --towa-ink: #e8fbff;
 }
 
 * { @apply border-border outline-ring/50; }

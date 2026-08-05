@@ -1,4 +1,12 @@
-import { Artwork, Features, Footer, Hero, Moments, Navbar, RecentMembers, RulesFaq, TeamAndBoosters } from '@/components/towa/sections'
+import { Artwork } from "@/components/towa/artwork";
+import { Features } from "@/components/towa/features";
+import { Footer } from "@/components/towa/footer";
+import { Hero } from "@/components/towa/hero";
+import { Moments } from "@/components/towa/moments";
+import { Navbar } from "@/components/towa/navbar";
+import { RecentMembers } from "@/components/towa/recent-members";
+import { RulesFaq } from "@/components/towa/rules-faq";
+import { TeamAndBoosters } from "@/components/towa/team-boosters";
 
 export default function Page() {
   return (
@@ -13,5 +21,5 @@ export default function Page() {
       <RulesFaq />
       <Footer />
     </main>
-  )
+  );
 }
