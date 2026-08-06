@@ -8,10 +8,7 @@ import { ArrowUpRight, Zap } from "lucide-react";
 function CyberpunkToggle() {
   const { theme, toggleTheme, isDesktop } = useTheme();
   const shouldReduceMotion = useReducedMotion();
-
-  // Bukan cuma disembunyikan lewat CSS — mekanismenya tetap ada di semua ukuran
-  // layar (biar gampang di-test), tapi secara desain memang cuma dimaksudkan
-  // buat desktop, jadi elemen ini disembunyikan penuh di bawah breakpoint lg.
+  
   if (!isDesktop) return null;
 
   const isCyberpunk = theme === "cyberpunk";
