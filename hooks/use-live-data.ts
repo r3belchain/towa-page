@@ -54,12 +54,15 @@ function useRealtimeTable<T>(
 
     async function load() {
       try {
+        console.log(`[${table}] Fetching data...`);
         const result = await fetcher();
+        console.log(`[${table}] Data received:`, result);
         if (isMounted) {
           setData(result);
           setError(null);
         }
       } catch (err) {
+        console.error(`[${table}] Error:`, err);
         if (isMounted)
           setError(err instanceof Error ? err.message : "Gagal memuat data");
       } finally {
