@@ -10,7 +10,7 @@ import { TeamAndBoosters } from "@/components/towa/team-boosters";
 
 export default function Page() {
   return (
-    <main className="overflow-hidden">
+    <main className="overflow-x-clip">
       <Navbar />
       <Hero />
       <RecentMembers />
