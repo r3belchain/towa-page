@@ -24,8 +24,7 @@ export function RulesFaq() {
           <p className="font-black">Rules singkat warga:</p>
           <ul className="mt-4 flex flex-col gap-3 text-sm font-bold">
             <li>01 — Saling menghargai, no drama.</li>
-            <li>02 — Promosi di tempat yang sudah disediakan.</li>
-            <li>03 — Kalau ragu, tanya staff. Jangan asumsi.</li>
+            <li>02 — Kalau ragu, tanya staff. Jangan asumsi.</li>
           </ul>
         </div>
       </div>
