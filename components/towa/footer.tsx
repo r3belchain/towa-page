@@ -36,7 +36,7 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-[#ead9ad] px-5 py-5 text-center text-xs font-bold text-[#887e69]">
-        Made with kopi susu and warga asbun.
+        Made with aren latte less sugar by warga asbun.
       </div>
     </footer>
   );

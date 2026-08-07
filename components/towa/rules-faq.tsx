@@ -22,9 +22,21 @@ export function RulesFaq() {
         </h2>
         <div className="mt-8 rounded-2xl border-2 border-[#1a1a1a] bg-[#f5c518] p-6 shadow-[6px_6px_0_#1a1a1a]">
           <p className="font-black">Rules singkat warga:</p>
-          <ul className="mt-4 flex flex-col gap-3 text-sm font-bold">
-            <li>01 — Saling menghargai, no drama.</li>
-            <li>02 — Kalau ragu, tanya staff. Jangan asumsi.</li>
+          <ul className="mt-4 flex flex-col gap-3 text-sm font-medium">
+            <li>
+              — <strong className="font-bold">No SARA & Politik:</strong> Kita
+              di sini nyari temen mabar dan tempat santai, bukan mau debat
+              capres atau agama.
+            </li>
+            <li>
+              — <strong className="font-bold">No NSFW/porno:</strong> Hargain warga yang lain. AutoMod kita galak,
+              salah kirim link atau ketik kata terlarang bisa langsung di- kick
+              / banned.
+            </li>
+            <li>
+              — <strong className="font-bold">Respect the Staff:</strong> Kalau ditegur sama Pejabat atau Moderator,
+              tolong diturutin ya biar tongkrongan tetep asik buat semua.
+            </li>
           </ul>
         </div>
       </div>

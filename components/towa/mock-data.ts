@@ -98,46 +98,236 @@ export const artworks = [
 
 export const team = [
   {
-    name: "Adit Pratama",
-    username: "@aditp",
-    role: "Founder",
-    avatarUrl: "https://i.pravatar.cc/240?img=11",
+    name: "!Shiro",
+    username: "@aoki_s0ra",
+    role: "Owner",
+    avatarUrl: "profile/!shiro.png",
   },
   {
-    name: "Naya Putri",
-    username: "@nayap",
-    role: "Officer",
-    avatarUrl: "https://i.pravatar.cc/240?img=47",
-  },
-  {
-    name: "Raka Bintang",
-    username: "@rakab",
+    name: "!San",
+    username: "@tianiii09",
     role: "Moderator",
-    avatarUrl: "https://i.pravatar.cc/240?img=12",
+    avatarUrl: "profile/!san.png",
   },
   {
-    name: "Salsa Kirana",
-    username: "@salsak",
-    role: "Officer",
-    avatarUrl: "https://i.pravatar.cc/240?img=32",
+    name: "ceritanya ini bangku",
+    username: "@loveveily",
+    role: "Menteri",
+    avatarUrl: "profile/menteri.png",
   },
   {
-    name: "Dito Ramadhan",
-    username: "@ditor",
-    role: "Event Crew",
-    avatarUrl: "https://i.pravatar.cc/240?img=68",
+    name: "愤怒T",
+    username: "@rage.t",
+    role: "Bandar Event",
+    avatarUrl: "profile/rage.png",
+  },
+  {
+    name: "ゼンニット",
+    username: "@uszeroo",
+    role: "Mekanik Towa",
+    avatarUrl: "profile/zenx.png",
+  },
+];
+
+export type RolePillMember = {
+  discordUserId: string;
+  username: string;
+  avatarUrl: string;
+};
+
+export type RoleGroup = {
+  label: string;
+  icon: string;
+  members: RolePillMember[];
+};
+
+export const teamRoles: RoleGroup[] = [
+  {
+    label: "Owner",
+    icon: "👑",
+    members: [
+      {
+        discordUserId: "1",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
+  },
+  {
+    label: "Three of Founder",
+    icon: "🧱",
+    members: [
+      {
+        discordUserId: "2",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+      {
+        discordUserId: "3",
+        username: "@ryrynz",
+        avatarUrl: "/profile/katag.png",
+      },
+      {
+        discordUserId: "4",
+        username: "tes",
+        avatarUrl: "/profile/katag.png",
+      },
+    ],
+  },
+  {
+    label: "Menteri Towa",
+    icon: "🎩",
+    members: [
+      {
+        discordUserId: "5",
+        username: "@loveveily",
+        avatarUrl: "/profile/menteri.png",
+      },
+    ],
+  },
+  {
+    label: "Bandar Event",
+    icon: "🎪",
+    members: [
+      {
+        discordUserId: "6",
+        username: "@rage.t",
+        avatarUrl: "/profile/rage.png",
+      },
+      {
+        discordUserId: "7",
+        username: "@shenaraley",
+        avatarUrl: "/profile/shenaraley.png",
+      },
+    ],
+  },
+  {
+    label: "Mekanik Towa",
+    icon: "🛠️",
+    members: [
+      {
+        discordUserId: "8",
+        username: "uszeroo",
+        avatarUrl: "/profile/zenx.png",
+      },
+    ],
+  },
+  {
+    label: "Moderator",
+    icon: "🛡️",
+    members: [
+      {
+        discordUserId: "9",
+        username: "@ryrynz",
+        avatarUrl: "/profile/katag.png",
+      },
+      {
+        discordUserId: "10",
+        username: "@ryrynz",
+        avatarUrl: "/profile/katag.png",
+      },
+    ],
+  },
+  {
+    label: "Guide Towa",
+    icon: "🧭",
+    members: [
+      {
+        discordUserId: "11",
+        username: "@mizxue",
+        avatarUrl: "/profile/mizxue.png",
+      },
+    ],
+  },
+  {
+    label: "Tukang Ramein",
+    icon: "🎉",
+    members: [
+      {
+        discordUserId: "12",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+      {
+        discordUserId: "13",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
+  },
+];
+
+export const donorTiers: (RoleGroup & { icon: string })[] = [
+  {
+    label: "Donatur Warkop",
+    icon: "☕",
+    members: [
+      {
+        discordUserId: "20",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+      {
+        discordUserId: "21",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+      {
+        discordUserId: "22",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
+  },
+  {
+    label: "Investor Tongkrongan",
+    icon: "💰",
+    members: [
+      {
+        discordUserId: "23",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+      {
+        discordUserId: "24",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
+  },
+  {
+    label: "Warga Sultan",
+    icon: "👑",
+    members: [
+      {
+        discordUserId: "25",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
+  },
+  {
+    label: "Juragan Towa",
+    icon: "🏆",
+    members: [
+      {
+        discordUserId: "26",
+        username: "@aoki_s0ra",
+        avatarUrl: "/profile/!shiro.png",
+      },
+    ],
   },
 ];
 
 export const boosters: Avatar[] = [
-  { name: "Mia", avatarUrl: "https://i.pravatar.cc/100?img=44" },
-  { name: "Fikri", avatarUrl: "https://i.pravatar.cc/100?img=5" },
-  { name: "Jihan", avatarUrl: "https://i.pravatar.cc/100?img=25" },
-  { name: "Bima", avatarUrl: "https://i.pravatar.cc/100?img=60" },
-  { name: "Seno", avatarUrl: "https://i.pravatar.cc/100?img=14" },
-  { name: "Caca", avatarUrl: "https://i.pravatar.cc/100?img=49" },
-  { name: "Nino", avatarUrl: "https://i.pravatar.cc/100?img=53" },
-  { name: "Ayu", avatarUrl: "https://i.pravatar.cc/100?img=36" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
+  { name: "!shiro", avatarUrl: "/profile/!shiro.png" },
 ];
 
 export const faqs = [
@@ -146,7 +336,7 @@ export const faqs = [
     answer:
       "Gratis dong. TOWA terbuka untuk siapa saja yang ingin ngobrol, mabar, dan cari teman baru.",
   },
-  { question: "Boleh promosi karya atau komunitas?", answer: "Tidak Boleh" },
+  { question: "Boleh promosi karya atau komunitas?", answer: "Tidak Boleh yaa.." },
   {
     question: "Apakah wajib aktif setiap hari?",
     answer:
