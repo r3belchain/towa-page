@@ -56,7 +56,6 @@ function useRealtimeTable<T>(
       try {
         console.log(`[${table}] Fetching data...`);
         const result = await fetcher();
-        console.log(`[${table}] Data received:`, result);
         if (isMounted) {
           setData(result);
           setError(null);
@@ -83,15 +82,11 @@ function useRealtimeTable<T>(
       isMounted = false;
       if (channel) supabase.removeChannel(channel);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [table]);
 
   return { data, loading, error };
 }
 
-// ─────────────────────────────────────────────────────────────
-// Hooks publik
-// ─────────────────────────────────────────────────────────────
 
 export function useServerStats() {
   return useRealtimeTable<ServerStatsRow | null>(
@@ -159,7 +154,6 @@ export function useVoiceActivity() {
     [],
   );
 
-  // Group per channel biar cocok sama bentuk voiceChannels di UI lama
   const grouped: VoiceChannelGroup[] = Object.values(
     data.reduce<Record<string, VoiceChannelGroup>>((acc, row) => {
       if (!acc[row.channel_id]) {

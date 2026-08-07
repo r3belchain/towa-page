@@ -47,49 +47,52 @@ export const voiceChannels = [
 
 export const moments = [
   {
-    title: "Nobar weekend",
-    image:
-      "/dc-assets/asset1.jpg",
+    title: "Jalan Pagi",
+    image: "/dc-assets/asset1.jpg",
     size: "tall",
   },
   {
-    title: "Warga gathering",
-    image:
-      "https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=900&q=85",
-    size: "short",
+    title: "mas mas",
+    image: "/dc-assets/asset7.png",
+    size: "tall",
   },
   {
-    title: "Malam minggu",
-    image:
-      "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&w=900&q=85",
-    size: "short",
+    title: "Dating",
+    image: "/dc-assets/asset3.png",
+    size: "tall",
   },
   {
-    title: "Kopi dan cerita",
-    image:
-      "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=900&q=85",
+    title: "Antara aku, kamu, dan senja",
+    image: "/dc-assets/asset4.png",
+    size: "tall",
+  },
+  {
+    title: "diajak mama yoga",
+    image: "/dc-assets/asset6.jpg",
+    size: "tall",
+  },
+  {
+    title: "Nonton sama my kisah",
+    image: "/dc-assets/asset2.jpg",
     size: "tall",
   },
 ];
 
 export const artworks = [
   {
-    title: "Kucing penjaga server",
-    artist: "@miyawaki",
-    image:
-      "https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=700&q=85",
+    title: "WithYou",
+    artist: "Rage T",
+    image: "/dc-assets/pamerkarya1.png",
   },
   {
-    title: "Langit jam tiga",
-    artist: "@rasyidraw",
-    image:
-      "https://images.unsplash.com/photo-1531058020387-3be344556be6?auto=format&fit=crop&w=700&q=85",
+    title: "hmmmm",
+    artist: "Joan",
+    image: "/dc-assets/pamerkarya3.jpg",
   },
   {
-    title: "Sunday playlist",
-    artist: "@nala.wav",
-    image:
-      "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?auto=format&fit=crop&w=700&q=85",
+    title: "My Original Character",
+    artist: "Naomi",
+    image: "/dc-assets/pamerkarya2.png",
   },
 ];
 
@@ -151,7 +154,6 @@ export const faqs = [
   },
   {
     question: "Bagaimana cara ikut event?",
-    answer:
-      "Pantau kanal pengumuman agar tidak ketinggalan keseruannya.",
+    answer: "Pantau kanal pengumuman agar tidak ketinggalan keseruannya.",
   },
 ];
