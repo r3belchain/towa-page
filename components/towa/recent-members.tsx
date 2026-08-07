@@ -2,8 +2,6 @@
 
 import { useRecentMembers } from "@/hooks/use-live-data";
 
-// FASE 1 (functional-ugly): belum ada di desain v0 asli, styling minimal dulu,
-// nanti dipoles bareng section lain di Fase 2.
 export function RecentMembers() {
   const { data: members, loading } = useRecentMembers(10);
   return (

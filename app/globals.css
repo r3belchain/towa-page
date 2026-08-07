@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -24,10 +24,10 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --font-sans: 'DM Sans', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif;
-  --radius-sm: calc(var(--radius) * .6);
-  --radius-md: calc(var(--radius) * .8);
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
 
@@ -42,6 +42,9 @@
   --color-towa-accent: var(--towa-accent);
   --color-towa-accent-2: var(--towa-accent-2);
   --color-towa-ink: var(--towa-ink);
+  --color-towa-text-subtle: var(--towa-text-subtle);
+  --color-towa-live-bg: var(--towa-live-bg);
+  --color-towa-live-text: var(--towa-live-text);
 }
 
 :root {
@@ -75,6 +78,9 @@
   --towa-accent: #f5c518;
   --towa-accent-2: #e8833a;
   --towa-ink: #1a1a1a;
+  --towa-text-subtle: #887e69;
+  --towa-live-bg: #ffe5d2;
+  --towa-live-text: #b75819;
 }
 
 /* Skeleton mode cyberpunk — placeholder dulu (Tahap 0), detail visual lengkap
@@ -89,12 +95,27 @@
   --towa-accent: #ff2fd6;
   --towa-accent-2: #2fe8ff;
   --towa-ink: #e8fbff;
+  --towa-text-subtle: #5f6d8c;
+  --towa-live-bg: #0c2a33;
+  --towa-live-text: #2fe8ff;
 }
 
-* { @apply border-border outline-ring/50; }
-html { scroll-behavior: smooth; background: #fffdf7; }
-body { @apply bg-background text-foreground font-sans; }
-h1, h2, h3, h4 { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+* {
+  @apply border-border outline-ring/50;
+}
+html {
+  scroll-behavior: smooth;
+  background: #fffdf7;
+}
+body {
+  @apply bg-background text-foreground font-sans;
+}
+h1,
+h2,
+h3,
+h4 {
+  font-family: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+}
 
 .sticker-text {
   color: #f5c518;
@@ -102,13 +123,73 @@ h1, h2, h3, h4 { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-se
   paint-order: stroke fill;
   text-shadow: 4px 5px 0 #1a1a1a;
 }
-.doodle-dot { position: absolute; width: 12px; height: 12px; border-radius: 999px; background: #f5c518; }
-.towa-cup { position: relative; display: block; width: 42px; height: 30px; border: 4px solid #1a1a1a; border-radius: 5px 5px 12px 12px; background: #f5c518; }
-.towa-cup::after { content: ''; position: absolute; right: -13px; top: 5px; width: 12px; height: 13px; border: 4px solid #1a1a1a; border-left: 0; border-radius: 0 10px 10px 0; }
-.towa-cup span::before, .towa-cup span::after { content: ''; position: absolute; top: -17px; width: 4px; height: 13px; border-radius: 999px; background: #1a1a1a; }
-.towa-cup span::before { left: 8px; transform: rotate(-9deg); }
-.towa-cup span::after { left: 22px; transform: rotate(9deg); }
-.towa-cup-xl { width: 94px; height: 70px; border-width: 8px; border-radius: 10px 10px 28px 28px; }
-.towa-cup-xl::after { right: -27px; top: 13px; width: 25px; height: 29px; border-width: 8px; }
-.towa-cup-xl span::before, .towa-cup-xl span::after { top: -38px; width: 8px; height: 28px; }
-.towa-cup-xl span::before { left: 18px; }.towa-cup-xl span::after { left: 49px; }
+.doodle-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 999px;
+  background: #f5c518;
+}
+.towa-cup {
+  position: relative;
+  display: block;
+  width: 42px;
+  height: 30px;
+  border: 4px solid #1a1a1a;
+  border-radius: 5px 5px 12px 12px;
+  background: #f5c518;
+}
+.towa-cup::after {
+  content: "";
+  position: absolute;
+  right: -13px;
+  top: 5px;
+  width: 12px;
+  height: 13px;
+  border: 4px solid #1a1a1a;
+  border-left: 0;
+  border-radius: 0 10px 10px 0;
+}
+.towa-cup span::before,
+.towa-cup span::after {
+  content: "";
+  position: absolute;
+  top: -17px;
+  width: 4px;
+  height: 13px;
+  border-radius: 999px;
+  background: #1a1a1a;
+}
+.towa-cup span::before {
+  left: 8px;
+  transform: rotate(-9deg);
+}
+.towa-cup span::after {
+  left: 22px;
+  transform: rotate(9deg);
+}
+.towa-cup-xl {
+  width: 94px;
+  height: 70px;
+  border-width: 8px;
+  border-radius: 10px 10px 28px 28px;
+}
+.towa-cup-xl::after {
+  right: -27px;
+  top: 13px;
+  width: 25px;
+  height: 29px;
+  border-width: 8px;
+}
+.towa-cup-xl span::before,
+.towa-cup-xl span::after {
+  top: -38px;
+  width: 8px;
+  height: 28px;
+}
+.towa-cup-xl span::before {
+  left: 18px;
+}
+.towa-cup-xl span::after {
+  left: 49px;
+}
