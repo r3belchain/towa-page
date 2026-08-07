@@ -1,149 +1,248 @@
 "use client";
 
-import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { Doodles } from "@/components/ui/doodles";
-import { useTheme } from "@/lib/theme-provider";
 import {
   useBoosters,
   useServerStats,
   useVoiceActivity,
 } from "@/hooks/use-live-data";
+import { useTheme } from "@/lib/theme-provider";
+import {
+  animate as animateCount,
+  AnimatePresence,
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+
+import { useEffect, useRef } from "react";
 
 function formatCompact(n: number) {
   if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, "")}K`;
   return String(n);
 }
 
-// Entrance staggered kolom kiri Hero. Spring 400/22 sengaja kalem (sedikit
-// settle) — kalau pakai 500/12 headline gede ikut goyang.
-const container: Variants = {
-  hidden: {},
-  show: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
-};
-const item: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: { type: "spring", stiffness: 400, damping: 22 },
-  },
-};
+function StatCounter({
+  value,
+  label,
+  loading,
+}: {
+  value: number;
+  label: string;
+  loading: boolean;
+}) {
+  const reduce = useReducedMotion();
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, amount: 0.5 });
+  const hasAnimated = useRef(false);
+  const count = useMotionValue(0);
+  const display = useTransform(count, (v) => formatCompact(Math.round(v)));
+
+  useEffect(() => {
+    if (loading || !inView) return;
+    if (hasAnimated.current) {
+      count.set(value);
+      return;
+    }
+    hasAnimated.current = true;
+    if (reduce) {
+      count.set(value);
+      return;
+    }
+    const controls = animateCount(count, value, {
+      duration: 1.2,
+      ease: "easeOut",
+    });
+    return () => controls.stop();
+  }, [loading, inView, value, reduce, count]);
+
+  return (
+    <div ref={ref}>
+      <p className="text-3xl font-black tracking-tight text-towa-text">
+        {loading ? "—" : <motion.span>{display}</motion.span>}
+      </p>
+      <p className="mt-1 text-xs font-bold uppercase tracking-[.18em] text-towa-text-subtle">
+        {label}
+      </p>
+    </div>
+  );
+}
 
 export function Hero() {
   const { data: stats, loading: statsLoading } = useServerStats();
-  const { data: boosters } = useBoosters();
+  const { data: boosters, loading: boostersLoading } = useBoosters();
   const { isDesktop } = useTheme();
   const reduce = useReducedMotion();
-  // Gate animasi load/continuous: mati di mobile & saat reduce-motion → render
-  // statis (mobile ringan, kode animasi tetap ke-download tapi nggak jalan).
+
   const animate = isDesktop && !reduce;
 
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const textOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 0.4], [0, -60]);
+
   const communityStats = [
-    {
-      value: statsLoading ? "—" : formatCompact(stats?.total_members ?? 0),
-      label: "Warga",
-    },
-    {
-      value: statsLoading ? "—" : formatCompact(stats?.online_count ?? 0),
-      label: "Online",
-    },
-    {
-      value: statsLoading ? "—" : formatCompact(boosters.length),
-      label: "Boosters",
-    },
+    { value: stats?.total_members ?? 0, label: "Warga", loading: statsLoading },
+    { value: stats?.online_count ?? 0, label: "Online", loading: statsLoading },
+    { value: boosters.length, label: "Boosters", loading: boostersLoading },
   ];
 
   return (
-    <section id="top" className="relative overflow-hidden">
+    <section ref={sectionRef} id="top" className="relative overflow-hidden">
       <Doodles />
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pb-28 lg:pt-24">
-        <motion.div
-          className="relative z-10"
-          variants={container}
-          initial={animate ? "hidden" : false}
-          animate={animate ? "show" : false}
-        >
-          <motion.p
-            variants={item}
-            className="mb-5 inline-flex items-center gap-2 rounded-full border border-towa-accent-2/30 bg-towa-bg-alt px-3 py-1 text-xs font-black tracking-[0.18em] text-towa-accent-2"
-          >
-            <span className="size-2 rounded-full bg-towa-accent-2" /> DISCORD
-            COMMUNITY
-          </motion.p>
-          <motion.h1
-            variants={item}
-            className="max-w-2xl text-balance text-6xl font-black leading-[.9] tracking-[-.07em] text-towa-text sm:text-8xl lg:text-[7.3rem]"
-          >
-            <span className="sticker-text">Ini TOWA,</span>
-            <br />
-            <span className="text-towa-accent-2">tongkrongan</span>
-            <br />
-            warga asbun.
-          </motion.h1>
-          <motion.p
-            variants={item}
-            className="mt-7 max-w-xl text-lg leading-8 text-towa-text-muted"
-          >
-            Cari teman mabar 24 jam? Mau deep talk atau bahas anime? Di sini
-            tempatnya. Satu server, banyak cerita.
-          </motion.p>
+        <div className="relative z-10">
           <motion.div
-            variants={item}
-            className="mt-8 flex flex-wrap gap-2 text-sm font-bold"
+            style={animate ? { opacity: textOpacity, y: textY } : undefined}
           >
-            <motion.a
-              className="rounded-full bg-towa-ink px-4 py-2 text-towa-bg"
-              href="#tentang"
-              whileHover={reduce ? undefined : { y: -2 }}
-              whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 500, damping: 12 }}
-            >
-              Tentang
-            </motion.a>
-            <motion.a
-              className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-              href="#momen"
-              whileHover={reduce ? undefined : { y: -2 }}
-              whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 500, damping: 12 }}
-            >
-              Kirim Momen
-            </motion.a>
-            <motion.a
-              className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-              href="#karya"
-              whileHover={reduce ? undefined : { y: -2 }}
-              whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 500, damping: 12 }}
-            >
-              Pamer Karya
-            </motion.a>
-            <motion.a
-              className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-              href="#faq"
-              whileHover={reduce ? undefined : { y: -2 }}
-              whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-              transition={{ type: "spring", stiffness: 500, damping: 12 }}
-            >
-              Event
-            </motion.a>
+            <motion.p className="mb-5 inline-flex items-center gap-2 rounded-full border border-towa-accent-2/30 bg-towa-bg-alt px-3 py-1 text-xs font-black tracking-[0.18em] text-towa-accent-2">
+              <span className="size-2 rounded-full bg-towa-accent-2" /> DISCORD
+              COMMUNITY
+            </motion.p>
+            <motion.h1 className="max-w-2xl text-balance text-6xl font-black leading-[.9] tracking-[-.07em] text-towa-text sm:text-8xl lg:text-[7.3rem]">
+              <motion.span
+                className="inline-block"
+                initial={animate ? { opacity: 0, y: 20 } : false}
+                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0,
+                }}
+              >
+                <motion.span
+                  className="sticker-text inline-block"
+                  animate={
+                    animate ? { scale: [0.995, 1.005, 0.995] } : undefined
+                  }
+                  transition={
+                    animate
+                      ? { duration: 4.2, ease: "easeInOut", repeat: Infinity }
+                      : undefined
+                  }
+                >
+                  Ini TOWA,
+                </motion.span>
+              </motion.span>
+              <br />
+              <motion.span
+                className="inline-block"
+                initial={animate ? { opacity: 0, y: 20 } : false}
+                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.1,
+                }}
+              >
+                <motion.span
+                  className="text-towa-accent-2 inline-block"
+                  animate={
+                    animate
+                      ? { y: [-4, 4, -4], rotate: [-0.8, 0.8, -0.8] }
+                      : undefined
+                  }
+                  transition={
+                    animate
+                      ? { duration: 3.6, ease: "easeInOut", repeat: Infinity }
+                      : undefined
+                  }
+                >
+                  tongkrongan
+                </motion.span>
+              </motion.span>
+              <br />
+              <motion.span
+                className="inline-block"
+                initial={animate ? { opacity: 0, y: 20 } : false}
+                whileInView={animate ? { opacity: 1, y: 0 } : undefined}
+                viewport={{ once: true, amount: 0.6 }}
+                transition={{
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                  delay: 0.2,
+                }}
+              >
+                <motion.span
+                  className="inline-block"
+                  animate={animate ? { x: [-3, 3, -3] } : undefined}
+                  transition={
+                    animate
+                      ? { duration: 5, ease: "easeInOut", repeat: Infinity }
+                      : undefined
+                  }
+                >
+                  warga asbun.
+                </motion.span>
+              </motion.span>
+            </motion.h1>
+            <motion.p className="mt-7 max-w-xl text-lg leading-8 text-towa-text-muted">
+              Cari teman mabar 24 jam? Mau deep talk atau bahas anime? Di sini
+              tempatnya. Satu server, banyak cerita.
+            </motion.p>
+            <motion.div className="mt-8 flex flex-wrap gap-2 text-sm font-bold md:hidden">
+              <motion.a
+                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
+                href="#tentang"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 500, damping: 12 }}
+              >
+                Tentang
+              </motion.a>
+              <motion.a
+                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
+                href="#momen"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 500, damping: 12 }}
+              >
+                Kirim Momen
+              </motion.a>
+              <motion.a
+                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
+                href="#karya"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 500, damping: 12 }}
+              >
+                Pamer Karya
+              </motion.a>
+              <motion.a
+                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
+                href="#warga"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 500, damping: 12 }}
+              >
+                Rukun Warga
+              </motion.a>
+              <motion.a
+                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
+                href="#faq"
+                whileHover={reduce ? undefined : { y: -2 }}
+                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 500, damping: 12 }}
+              >
+                FAQ
+              </motion.a>
+            </motion.div>
           </motion.div>
-          <motion.div
-            variants={item}
-            className="mt-12 flex flex-wrap gap-8 border-t border-towa-border pt-6"
-          >
+
+          <div className="mt-12 flex flex-wrap gap-8 border-t border-towa-border pt-6">
             {communityStats.map((stat) => (
-              <div key={stat.label}>
-                <p className="text-3xl font-black tracking-tight text-towa-text">
-                  {stat.value}
-                </p>
-                <p className="mt-1 text-xs font-bold uppercase tracking-[.18em] text-towa-text-subtle">
-                  {stat.label}
-                </p>
-              </div>
+              <StatCounter key={stat.label} {...stat} />
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
         <HeroVisual />
       </div>
     </section>
@@ -157,8 +256,6 @@ function HeroVisual() {
 
   return (
     <div className="relative mx-auto min-h-[460px] w-full max-w-[560px]">
-      {/* Layer posisi: centering statis lewat -translate, dipisah biar transform
-          framer-motion (scale/y) nggak nabrak dan bikin lingkaran lari dari tengah. */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         {/* Layer pop-in entrance */}
         <motion.div
@@ -166,8 +263,6 @@ function HeroVisual() {
           animate={animate ? { opacity: 1, scale: 1 } : false}
           transition={{ type: "spring", stiffness: 300, damping: 18 }}
         >
-          {/* Layer idle-float (opsional, desktop only) — hapus blok motion ini
-              saja kalau mengganggu, sisanya tetap jalan. */}
           <motion.div
             animate={animate ? { y: [0, -8, 0] } : false}
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
@@ -216,9 +311,6 @@ export function VoiceActivityCard() {
             Belum ada yang nge-VC.
           </p>
         )}
-        {/* initial={false}: row yang sudah ada saat mount TIDAK slide-in; cuma
-            channel yang beneran baru muncul yang animate masuk. key={channelId}
-            stabil → refetch realtime nggak bikin row lama re-animate. */}
         <AnimatePresence initial={false}>
           {voiceChannels.map((channel) => (
             <motion.div

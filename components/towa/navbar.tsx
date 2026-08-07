@@ -44,6 +44,12 @@ export function Navbar() {
         </a>
         <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
           <a
+            href="#tentang"
+            className="transition-colors hover:text-towa-accent-2"
+          >
+            Tentang
+          </a>
+          <a
             href="#momen"
             className="transition-colors hover:text-towa-accent-2"
           >
@@ -60,6 +66,9 @@ export function Navbar() {
             className="transition-colors hover:text-towa-accent-2"
           >
             Rukun Warga
+          </a>
+          <a href="#faq" className="transition-colors hover:text-towa-accent-2">
+            FAQ
           </a>
         </nav>
         <div className="flex items-center gap-3">
