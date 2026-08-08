@@ -2,10 +2,7 @@
 
 export function Logo({ compact = false }: { compact?: boolean }) {
   return (
-  
     <div className="group flex items-center gap-3">
-
-
       <svg
         width="32"
         height="32"
@@ -15,7 +12,6 @@ export function Logo({ compact = false }: { compact?: boolean }) {
         className="transition-transform duration-300 ease-out group-hover:scale-110 group-hover:rotate-6"
         aria-hidden="true"
       >
-  
         <path
           d="M21 13H25C26.6569 13 28 14.3431 28 16V18C28 19.6569 26.6569 21 25 21H21"
           className="stroke-towa-text transition-colors duration-500"
@@ -24,7 +20,6 @@ export function Logo({ compact = false }: { compact?: boolean }) {
           strokeLinejoin="round"
         />
 
-  
         <path
           d="M7 10H21V20C21 23.866 17.866 27 14 27C10.134 27 7 23.866 7 20V10Z"
           className="fill-towa-accent stroke-towa-text transition-colors duration-500"
@@ -32,7 +27,6 @@ export function Logo({ compact = false }: { compact?: boolean }) {
           strokeLinejoin="round"
         />
 
-     
         <path
           d="M11 6C11 4.5 12 4.5 12 3"
           className="stroke-towa-accent-2 transition-colors duration-500"

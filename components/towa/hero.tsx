@@ -374,7 +374,9 @@ export function VoiceActivityCard() {
                     </span>
                   ))}
                 </div>
-                <span className="text-sm font-bold">{channel.name}</span>
+                <span className="text-sm font-bold text-towa-ink">
+                  {channel.name}
+                </span>
               </div>
               <span className="text-xs font-bold text-towa-text-subtle">
                 {channel.people}
