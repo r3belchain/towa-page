@@ -50,31 +50,44 @@ export const moments = [
     title: "Jalan Pagi",
     image: "/dc-assets/asset1.jpg",
     size: "tall",
+    ratio: 0.75,
   },
   {
     title: "mas mas",
     image: "/dc-assets/asset7.png",
     size: "tall",
+    ratio: 1.93,
   },
   {
     title: "Dating",
     image: "/dc-assets/asset3.png",
     size: "tall",
+    ratio: 1.78,
   },
   {
     title: "Antara aku, kamu, dan senja",
     image: "/dc-assets/asset4.png",
     size: "tall",
+    ratio: 1.78,
   },
   {
     title: "diajak mama yoga",
     image: "/dc-assets/asset6.jpg",
     size: "tall",
+    ratio: 0.56,
   },
   {
     title: "Nonton sama my kisah",
     image: "/dc-assets/asset2.jpg",
     size: "tall",
+    ratio: 0.75,
+  },
+  { title: "Meong", image: "/dc-assets/kucing.jpg", size: "tall", ratio: 1.33 },
+  {
+    title: "Khufra ketutup Tembok Grock",
+    image: "/dc-assets/mlbb.png",
+    size: "tall",
+    ratio: 2.16,
   },
 ];
 

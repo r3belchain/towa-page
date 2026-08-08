@@ -82,7 +82,7 @@ export function TeamAndBoosters() {
                     key={tier.label}
                     label={tier.label}
                     members={tier.members}
-                    icon={<span aria-hidden="true">{tier.icon}</span>}
+                    icon={tier.icon}
                     tone={DONOR_TONE[index]}
                   />
                 ))}

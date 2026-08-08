@@ -28,7 +28,7 @@ function CyberpunkToggle() {
       className="inline-flex items-center gap-2 rounded-full border border-towa-border px-3.5 py-2 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2"
     >
       <Zap className="size-3.5" />
-      {isCyberpunk ? "Normal mode" : "Cyberpunk mode"}
+      {isCyberpunk ? "Light mode" : "Dark mode"}
     </motion.button>
   );
 }

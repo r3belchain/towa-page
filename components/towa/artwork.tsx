@@ -1,6 +1,6 @@
+import { SectionHeading } from "@/components/ui/section-heading";
 import { Play } from "lucide-react";
 import { artworks } from "./mock-data";
-import { SectionHeading } from "@/components/ui/section-heading";
 
 export function Artwork() {
   return (
@@ -10,6 +10,7 @@ export function Artwork() {
           eyebrow="Sudut kreatif"
           title="Pamer Karya"
           description="Tempat karya kamu mendapat panggung, feedback, dan tepuk tangan dari warga TOWA."
+          inverted
         />
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {artworks.map((artwork) => (
