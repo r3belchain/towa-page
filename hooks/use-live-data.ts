@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import { supabase } from "@/lib/supabase";
-
-
+import { useEffect, useRef, useState } from "react";
 
 type ServerStatsRow = {
   id: number;
@@ -36,6 +34,17 @@ type VoiceActivityRow = {
   joined_at: string;
 };
 
+type StaffMemberRow = {
+  discord_user_id: string;
+  username: string;
+  display_name: string;
+  avatar_url: string;
+  role_id: string;
+  role_name: string;
+  role_color: string;
+  position_order: number;
+  updated_at: string;
+};
 
 function useRealtimeTable<T>(
   table: string,
@@ -86,7 +95,6 @@ function useRealtimeTable<T>(
 
   return { data, loading, error };
 }
-
 
 export function useServerStats() {
   return useRealtimeTable<ServerStatsRow | null>(
@@ -171,4 +179,34 @@ export function useVoiceActivity() {
   );
 
   return { data: grouped, loading, error };
+}
+
+export function useStaffMembers() {
+  return useRealtimeTable<StaffMemberRow[]>(
+    "staff_members",
+    async () => {
+      const { data, error } = await supabase
+        .from("staff_members")
+        .select("*")
+        .order("position_order", { ascending: true });
+      if (error) throw error;
+      return data ?? [];
+    },
+    [],
+  );
+}
+
+export function useDonors() {
+  return useRealtimeTable<StaffMemberRow[]>(
+    "donors",
+    async () => {
+      const { data, error } = await supabase
+        .from("donors")
+        .select("*")
+        .order("position_order", { ascending: true });
+      if (error) throw error;
+      return data ?? [];
+    },
+    [],
+  );
 }

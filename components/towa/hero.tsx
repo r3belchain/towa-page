@@ -261,7 +261,6 @@ function HeroVisual() {
   return (
     <div className="relative mx-auto min-h-[460px] w-full max-w-[560px]">
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-
         <motion.div
           initial={animate ? { opacity: 0, scale: 0.9 } : false}
           animate={animate ? { opacity: 1, scale: 1 } : false}
@@ -272,7 +271,6 @@ function HeroVisual() {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
           >
             <div className="relative flex size-[310px] items-center justify-center rounded-full border-[3px] border-towa-ink bg-towa-accent shadow-[12px_14px_0_var(--towa-accent-2)] sm:size-[390px]">
-     
               <div className="flex items-center justify-center rounded-full border-2 border-towa-ink bg-towa-bg-alt p-10 sm:p-12">
                 <svg
                   width="96"
@@ -283,7 +281,6 @@ function HeroVisual() {
                   className="size-20 sm:size-24 transition-transform duration-500 hover:scale-105"
                   aria-hidden="true"
                 >
-                
                   <path
                     d="M21 13H25C26.6569 13 28 14.3431 28 16V18C28 19.6569 26.6569 21 25 21H21"
                     className="stroke-towa-text transition-colors duration-500"
@@ -292,7 +289,6 @@ function HeroVisual() {
                     strokeLinejoin="round"
                   />
 
-           
                   <path
                     d="M7 10H21V20C21 23.866 17.866 27 14 27C10.134 27 7 23.866 7 20V10Z"
                     className="fill-towa-accent stroke-towa-text transition-colors duration-500"
@@ -300,7 +296,6 @@ function HeroVisual() {
                     strokeLinejoin="round"
                   />
 
-            
                   <path
                     d="M11 6C11 4.5 12 4.5 12 3"
                     className="stroke-towa-accent-2 transition-colors duration-500"
@@ -308,7 +303,6 @@ function HeroVisual() {
                     strokeLinecap="round"
                   />
 
-           
                   <path
                     d="M17 6C17 4.5 16 4.5 16 3"
                     className="stroke-towa-accent-2 transition-colors duration-500"
