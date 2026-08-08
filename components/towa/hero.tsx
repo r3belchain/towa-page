@@ -94,7 +94,11 @@ export function Hero() {
   ];
 
   return (
-    <section ref={sectionRef} id="top" className="relative overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="top"
+      className="relative overflow-hidden bg-towa-bg"
+    >
       <Doodles />
       <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pb-28 lg:pt-24">
         <div className="relative z-10">

@@ -105,7 +105,7 @@
 }
 html {
   scroll-behavior: smooth;
-  background: #fffdf7;
+  background: var(--towa-bg);
 }
 body {
   @apply bg-background text-foreground font-sans;
