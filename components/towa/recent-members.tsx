@@ -1,78 +1,81 @@
 "use client";
 
+import { SectionHeading } from "@/components/ui/section-heading";
 import { useRecentMembers } from "@/hooks/use-live-data";
-import { useTheme } from "@/lib/theme-provider";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 
-const HEADING = "10 Warga Terbaru";
+const containerVariants: Variants = {
+  hidden: {},
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const bubbleVariants: Variants = {
+  hidden: { opacity: 0, y: 20, scale: 0.8 },
+  show: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { type: "spring", stiffness: 200, damping: 15 },
+  },
+};
 
 export function RecentMembers() {
   const { data: members, loading } = useRecentMembers(10);
-  const { isDesktop } = useTheme();
-  const reduce = useReducedMotion();
-  const animate = isDesktop && !reduce;
 
   return (
-    <section id="warga-baru" className="mx-auto max-w-7xl px-5 py-16 lg:px-8">
-      <motion.p
-        className="text-xs font-black uppercase tracking-[.22em] text-towa-accent-2"
-        initial={animate ? { opacity: 0, y: 8 } : false}
-        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-        viewport={{ amount: 0.6 }}
-        transition={animate ? { duration: 0.5, ease: "easeInOut" } : undefined}
-      >
-        Baru gabung
-      </motion.p>
+    <section
+      id="warga-baru"
+      className="w-full bg-towa-bg py-24 transition-colors duration-500"
+    >
+      <div className="mx-auto max-w-7xl px-5 lg:px-8 overflow-hidden">
+        <SectionHeading eyebrow="Baru gabung" title="10 Warga Terbaru" />
 
-      <motion.h2
-        className="mt-3 text-3xl font-black tracking-[-.04em] text-towa-text"
-        initial={animate ? { opacity: 0, y: 12 } : false}
-        whileInView={animate ? { opacity: 1, y: 0 } : undefined}
-        viewport={{ amount: 0.6 }}
-        transition={animate ? { duration: 0.5, ease: "easeInOut" } : undefined}
-      >
-        <span className="sr-only">{HEADING}</span>
-        <span aria-hidden="true" className="flex flex-wrap">
-          {HEADING.split("").map((char, index) => (
+        <motion.div
+          className="mt-12 flex flex-wrap gap-4"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, margin: "-10%" }}
+        >
+          {loading && (
+            <p className="text-sm font-medium text-towa-text-subtle">
+              Memuat kedatangan warga baru...
+            </p>
+          )}
+          {!loading && members.length === 0 && (
+            <p className="text-sm font-medium text-towa-text-subtle">
+              Belum ada warga baru yang tercatat.
+            </p>
+          )}
+
+          {members.map((member) => (
             <motion.span
-              key={index}
-              className="inline-block"
-              animate={animate ? { y: [0, -6, 0] } : undefined}
-              transition={
-                animate
-                  ? {
-                      duration: 1.6,
-                      ease: "easeInOut",
-                      repeat: Infinity,
-                      delay: index * 0.05,
-                    }
-                  : undefined
-              }
+              key={member.discord_user_id + member.event_at}
+              variants={bubbleVariants}
+              whileHover={{ y: -4, scale: 1.05 }}
+              className="group inline-flex items-center gap-3 rounded-full border border-towa-border bg-towa-bg-alt py-1.5 pl-1.5 pr-5 text-sm font-bold text-towa-text shadow-sm transition-colors duration-300 hover:border-towa-accent-2 hover:shadow-md"
             >
-              {char === " " ? "\u00A0" : char}
+              <div className="relative flex size-8 shrink-0 items-center justify-center overflow-hidden rounded-full border-2 border-towa-bg bg-towa-border">
+                <img
+                  src={member.avatar_url}
+                  alt={member.username}
+                  className="size-full object-cover transition-transform duration-300 group-hover:rotate-6 group-hover:scale-110"
+                  onError={(e) => {
+                    e.currentTarget.style.display = "none";
+                  }}
+                />
+              </div>
+              <span className="truncate max-w-[120px] sm:max-w-none">
+                {member.username}
+              </span>
             </motion.span>
           ))}
-        </span>
-      </motion.h2>
-
-      <div className="mt-6 flex flex-wrap gap-3">
-        {loading && <p className="text-sm text-towa-text-subtle">Memuat...</p>}
-        {!loading && members.length === 0 && (
-          <p className="text-sm text-towa-text-subtle">Belum ada warga baru.</p>
-        )}
-        {members.map((member) => (
-          <span
-            key={member.discord_user_id + member.event_at}
-            className="inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg-alt py-1 pl-1 pr-3 text-sm font-bold"
-          >
-            <img
-              src={member.avatar_url}
-              alt=""
-              className="size-7 rounded-full object-cover"
-            />
-            {member.username}
-          </span>
-        ))}
+        </motion.div>
       </div>
     </section>
   );

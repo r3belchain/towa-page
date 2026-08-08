@@ -10,7 +10,6 @@ import {
 } from "framer-motion";
 import { moments } from "./mock-data";
 
-
 import { SectionHeading } from "@/components/ui/section-heading";
 
 const STREAM_CONFIG = [
@@ -54,13 +53,15 @@ function StreamCard({
     >
       <figure
         style={{ aspectRatio: moment.ratio }}
-        className="group relative overflow-hidden rounded-2xl bg-white shadow-[0_10px_30px_rgba(0,0,0,0.08)] border border-black/5 transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.18)] hover:-translate-y-1"
+
+        className="group relative overflow-hidden rounded-2xl border border-towa-border bg-towa-bg-alt shadow-lg transition-all duration-500 hover:-translate-y-1 hover:shadow-2xl"
       >
         <img
           src={moment.image}
           alt={moment.title}
           className="size-full object-cover transition duration-700 group-hover:scale-105"
         />
+  
         <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent px-4 pb-3 pt-10 text-xs font-bold text-white opacity-90 transition-opacity duration-300 group-hover:opacity-100">
           {moment.title}
         </figcaption>
@@ -95,70 +96,72 @@ export function Moments() {
   );
 
   return (
+
     <section
       id="momen"
-      className="relative mx-auto max-w-[1500px] px-5 py-24 lg:px-8"
+      className="w-full bg-towa-bg transition-colors duration-500"
     >
 
-      <SectionHeading
-        eyebrow="Cerita Warga"
-        title="Kirim Momen"
-        description="Momen kecil, cerita besar. Bagikan potongan harimu dan biarkan warga lain ikut tersenyum."
-        align="center"
-        className="mb-12 lg:hidden" 
-      />
+      <div className="relative mx-auto max-w-[1500px] px-5 py-24 lg:px-8">
+        <SectionHeading
+          eyebrow="Cerita Warga"
+          title="Kirim Momen"
+          description="Momen kecil, cerita besar. Bagikan potongan harimu dan biarkan warga lain ikut tersenyum."
+          align="center"
+          className="mb-12 lg:hidden"
+        />
 
-      <div className="grid auto-rows-[180px] gap-4 sm:grid-cols-4 sm:auto-rows-[150px] lg:hidden">
-        {moments.map((moment, index) => (
-          <figure
-            key={moment.title}
-            className={`group relative overflow-hidden rounded-2xl border border-black/10 shadow-sm ${moment.size === "tall" ? "sm:row-span-2" : "sm:col-span-1"} ${index === 1 ? "sm:col-span-2" : ""}`}
-          >
-            <img
-              src={moment.image}
-              alt={moment.title}
-              className="size-full object-cover transition duration-500 group-hover:scale-105"
-            />
-            <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-10 text-sm font-semibold text-white">
-              {moment.title}
-            </figcaption>
-          </figure>
-        ))}
-      </div>
-
-
-      <div
-        ref={sectionRef}
-        className="relative hidden lg:block"
-        style={{ height: "320vh" }}
-      >
-        <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
-
-          <motion.div
-            style={{
-              opacity: titleOpacity,
-              scale: titleScale,
-              filter: titleBlur,
-            }}
-            className="relative z-0 pointer-events-none"
-          >
-            <SectionHeading
-              eyebrow="Cerita Warga"
-              title="Kirim Momen"
-              description="Momen kecil, cerita besar. Bagikan potongan harimu dan biarkan warga lain ikut tersenyum."
-              align="center"
-            />
-          </motion.div>
-
+        <div className="grid auto-rows-[180px] gap-4 sm:grid-cols-4 sm:auto-rows-[150px] lg:hidden">
           {moments.map((moment, index) => (
-            <StreamCard
+            <figure
               key={moment.title}
-              moment={moment}
-              config={STREAM_CONFIG[index]}
-              progress={scrollYProgress}
-              reduce={!!reduce}
-            />
+      
+              className={`group relative overflow-hidden rounded-2xl border border-towa-border shadow-sm ${moment.size === "tall" ? "sm:row-span-2" : "sm:col-span-1"} ${index === 1 ? "sm:col-span-2" : ""}`}
+            >
+              <img
+                src={moment.image}
+                alt={moment.title}
+                className="size-full object-cover transition duration-500 group-hover:scale-105"
+              />
+              <figcaption className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-4 pb-4 pt-10 text-sm font-semibold text-white">
+                {moment.title}
+              </figcaption>
+            </figure>
           ))}
+        </div>
+
+        <div
+          ref={sectionRef}
+          className="relative hidden lg:block"
+          style={{ height: "320vh" }}
+        >
+          <div className="sticky top-0 flex h-screen items-center justify-center overflow-hidden">
+            <motion.div
+              style={{
+                opacity: titleOpacity,
+                scale: titleScale,
+                filter: titleBlur,
+              }}
+              className="relative z-0 pointer-events-none"
+            >
+              <SectionHeading
+                eyebrow="Cerita Warga"
+                title="Kirim Momen"
+                description="Momen kecil, cerita besar. Bagikan potongan harimu dan biarkan warga lain ikut tersenyum."
+                align="center"
+              />
+            </motion.div>
+
+            {moments.map((moment, index) => (
+              <StreamCard
+                key={moment.title}
+                moment={moment}
+                config={STREAM_CONFIG[index]}
+                progress={scrollYProgress}
+                reduce={!!reduce}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

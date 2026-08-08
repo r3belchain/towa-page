@@ -4,11 +4,12 @@ import { Logo } from "@/components/ui/logo";
 import { useTheme } from "@/lib/theme-provider";
 import { motion, useReducedMotion } from "framer-motion";
 import { ArrowUpRight, Zap } from "lucide-react";
+import { useState } from "react";
 
 function CyberpunkToggle() {
   const { theme, toggleTheme, isDesktop } = useTheme();
   const shouldReduceMotion = useReducedMotion();
-  
+
   if (!isDesktop) return null;
 
   const isCyberpunk = theme === "cyberpunk";
@@ -25,7 +26,8 @@ function CyberpunkToggle() {
           ? { duration: 0 }
           : { type: "spring", stiffness: 500, damping: 12 }
       }
-      className="inline-flex items-center gap-2 rounded-full border border-towa-border px-3.5 py-2 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2"
+    
+      className="inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg/50 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2 hover:bg-towa-bg"
     >
       <Zap className="size-3.5" />
       {isCyberpunk ? "Light mode" : "Dark mode"}
@@ -33,48 +35,68 @@ function CyberpunkToggle() {
   );
 }
 
+
+const navLinks = [
+  { name: "Tentang", href: "#tentang" },
+  { name: "Kirim Momen", href: "#momen" },
+  { name: "Pamer Karya", href: "#karya" },
+  { name: "Rukun Warga", href: "#warga" },
+  { name: "FAQ", href: "#faq" },
+];
+
 export function Navbar() {
   const shouldReduceMotion = useReducedMotion();
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-towa-border/70 bg-towa-bg/90 backdrop-blur-md">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-5 py-4 lg:px-8">
-        <a href="#top" aria-label="TOWA home">
+
+    <header className="fixed inset-x-4 top-4 z-40 mx-auto max-w-6xl rounded-full border border-towa-border/50 bg-towa-bg/75 px-5 py-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-colors duration-500">
+      <div className="flex items-center justify-between gap-4">
+        {/* LOGO */}
+        <a
+          href="#top"
+          aria-label="TOWA home"
+          className="flex shrink-0 items-center"
+        >
           <Logo />
         </a>
-        <nav className="hidden items-center gap-8 text-sm font-bold md:flex">
-          <a
-            href="#tentang"
-            className="transition-colors hover:text-towa-accent-2"
-          >
-            Tentang
-          </a>
-          <a
-            href="#momen"
-            className="transition-colors hover:text-towa-accent-2"
-          >
-            Kirim Momen
-          </a>
-          <a
-            href="#karya"
-            className="transition-colors hover:text-towa-accent-2"
-          >
-            Pamer Karya
-          </a>
-          <a
-            href="#warga"
-            className="transition-colors hover:text-towa-accent-2"
-          >
-            Rukun Warga
-          </a>
-          <a href="#faq" className="transition-colors hover:text-towa-accent-2">
-            FAQ
-          </a>
+
+    
+        <nav
+          className="hidden items-center md:flex"
+          onMouseLeave={() => setHoveredIndex(null)}
+        >
+          {navLinks.map((link, index) => (
+            <a
+              key={link.name}
+              href={link.href}
+              onMouseEnter={() => setHoveredIndex(index)}
+              className="relative px-4 py-2 text-sm font-bold text-towa-text transition-colors hover:text-towa-ink"
+            >
+       
+              {hoveredIndex === index && (
+                <motion.div
+                  layoutId="navbar-hover-pill"
+                  className="absolute inset-0 rounded-full bg-towa-border/40"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                />
+              )}
+           
+              <span className="relative z-10">{link.name}</span>
+            </a>
+          ))}
         </nav>
+
+      
         <div className="flex items-center gap-3">
           <CyberpunkToggle />
+
           <motion.a
-            className="inline-flex items-center gap-2 rounded-full bg-towa-accent px-5 py-2.5 text-sm font-black text-towa-ink shadow-[3px_3px_0_var(--towa-ink)] transition hover:shadow-[5px_5px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
+       
+            className="inline-flex items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
             href="https://discord.gg/SZbfKfU2NY"
             target="_blank"
             rel="noreferrer"
@@ -83,8 +105,8 @@ export function Navbar() {
             whileTap="tap"
             variants={{
               rest: { x: 0, y: 0 },
-              hover: shouldReduceMotion ? {} : { y: -4, x: -1 },
-              tap: shouldReduceMotion ? {} : { y: 2, x: 1 },
+              hover: shouldReduceMotion ? {} : { y: -2, x: -1 },
+              tap: shouldReduceMotion ? {} : { y: 1, x: 1 },
             }}
             transition={
               shouldReduceMotion

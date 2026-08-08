@@ -31,9 +31,6 @@
   --radius-lg: var(--radius);
   --radius-xl: calc(var(--radius) * 1.4);
 
-  /* Token khusus TOWA, dipakai section-section (bukan token shadcn generik di atas).
-     Nilainya ambil dari CSS variable di :root / [data-theme="cyberpunk"] di bawah,
-     jadi tinggal ganti attribute data-theme di <html>, semua ini otomatis ikut ganti. */
   --color-towa-bg: var(--towa-bg);
   --color-towa-bg-alt: var(--towa-bg-alt);
   --color-towa-text: var(--towa-text);
@@ -83,8 +80,7 @@
   --towa-live-text: #b75819;
 }
 
-/* Skeleton mode cyberpunk — placeholder dulu (Tahap 0), detail visual lengkap
-   digarap di Tahap 2. Yang penting sekarang: mekanisme switch-nya sudah nyambung. */
+
 [data-theme="cyberpunk"] {
   color-scheme: dark;
   --towa-bg: #0a0a12;
@@ -92,7 +88,7 @@
   --towa-text: #e8fbff;
   --towa-text-muted: #7d8bab;
   --towa-border: #2a2a4a;
-  --towa-accent: #ff2fd6;
+  --towa-accent: #d712d0;
   --towa-accent-2: #2fe8ff;
   --towa-ink: #e8fbff;
   --towa-text-subtle: #5f6d8c;
