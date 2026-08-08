@@ -3,6 +3,8 @@ import type { Metadata, Viewport } from 'next'
 import { ThemeProvider } from '@/lib/theme-provider'
 import './globals.css'
 
+import { DevNoticePill } from "@/components/ui/dev-notice-pill";
+
 export const metadata: Metadata = {
   title: 'TOWA — Tongkrongan Warga Asbun',
   description: 'Discord community buat mabar, ngobrol, kirim momen, dan pamer karya.',
@@ -19,9 +21,10 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="antialiased">
         <ThemeProvider>
           {children}
-          {process.env.NODE_ENV === 'production' && <Analytics />}
+          {process.env.NODE_ENV === "production" && <Analytics />}
+          <DevNoticePill />
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
