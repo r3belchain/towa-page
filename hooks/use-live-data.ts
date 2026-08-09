@@ -148,7 +148,7 @@ export type VoiceChannelGroup = {
   channelId: string;
   name: string;
   people: number;
-  avatars: string[]; // username, dipakai buat inisial di UI
+  avatars: string[]; 
 };
 
 export function useVoiceActivity() {

@@ -49,19 +49,17 @@ export function Navbar() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-
     <header className="fixed inset-x-4 top-4 z-40 mx-auto max-w-6xl rounded-full border border-towa-border/50 bg-towa-bg/75 px-5 py-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-colors duration-500">
       <div className="flex items-center justify-between gap-4">
         {/* LOGO */}
         <a
           href="#top"
           aria-label="TOWA home"
-          className="flex shrink-0 items-center"
+          className="flex shrink-0 items-center transition-transform active:scale-95" 
         >
           <Logo />
         </a>
 
-    
         <nav
           className="hidden items-center md:flex"
           onMouseLeave={() => setHoveredIndex(null)}
@@ -73,7 +71,6 @@ export function Navbar() {
               onMouseEnter={() => setHoveredIndex(index)}
               className="relative px-4 py-2 text-sm font-bold text-towa-text transition-colors hover:text-towa-ink"
             >
-       
               {hoveredIndex === index && (
                 <motion.div
                   layoutId="navbar-hover-pill"
@@ -84,18 +81,16 @@ export function Navbar() {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-           
+
               <span className="relative z-10">{link.name}</span>
             </a>
           ))}
         </nav>
 
-      
         <div className="flex items-center gap-3">
           <CyberpunkToggle />
 
           <motion.a
-       
             className="inline-flex items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
             href="https://discord.gg/SZbfKfU2NY"
             target="_blank"

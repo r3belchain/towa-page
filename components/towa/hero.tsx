@@ -18,7 +18,8 @@ import {
   useTransform,
 } from "framer-motion";
 
-import { useEffect, useRef } from "react";
+import { ChevronDown, ChevronUp, Volume2 } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 function formatCompact(n: number) {
   if (n >= 1000) return `${(n / 1000).toFixed(1).replace(/\.0$/, "")}K`;
@@ -259,67 +260,35 @@ function HeroVisual() {
   const animate = isDesktop && !reduce;
 
   return (
-    <div className="relative mx-auto min-h-[460px] w-full max-w-[560px]">
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
+    <div className="relative mx-auto flex min-h-[500px] w-full max-w-[580px] flex-col items-center justify-start pt-4">
+      <motion.div
+        initial={animate ? { opacity: 0, scale: 0.9 } : false}
+        animate={animate ? { opacity: 1, scale: 1 } : false}
+        transition={{ type: "spring", stiffness: 300, damping: 18 }}
+        className="relative z-0 -mt-16"
+      >
         <motion.div
-          initial={animate ? { opacity: 0, scale: 0.9 } : false}
-          animate={animate ? { opacity: 1, scale: 1 } : false}
-          transition={{ type: "spring", stiffness: 300, damping: 18 }}
+          animate={animate ? { y: [0, -6, 0] } : false}
+          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
         >
-          <motion.div
-            animate={animate ? { y: [0, -8, 0] } : false}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <div className="relative flex size-[310px] items-center justify-center rounded-full border-[3px] border-towa-ink bg-towa-accent shadow-[12px_14px_0_var(--towa-accent-2)] sm:size-[390px]">
-              <div className="flex items-center justify-center rounded-full border-2 border-towa-ink bg-towa-bg-alt p-10 sm:p-12">
-                <svg
-                  width="96"
-                  height="96"
-                  viewBox="0 0 32 32"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="size-20 sm:size-24 transition-transform duration-500 hover:scale-105"
-                  aria-hidden="true"
-                >
-                  <path
-                    d="M21 13H25C26.6569 13 28 14.3431 28 16V18C28 19.6569 26.6569 21 25 21H21"
-                    className="stroke-towa-text transition-colors duration-500"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-
-                  <path
-                    d="M7 10H21V20C21 23.866 17.866 27 14 27C10.134 27 7 23.866 7 20V10Z"
-                    className="fill-towa-accent stroke-towa-text transition-colors duration-500"
-                    strokeWidth="2.5"
-                    strokeLinejoin="round"
-                  />
-
-                  <path
-                    d="M11 6C11 4.5 12 4.5 12 3"
-                    className="stroke-towa-accent-2 transition-colors duration-500"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-
-                  <path
-                    d="M17 6C17 4.5 16 4.5 16 3"
-                    className="stroke-towa-accent-2 transition-colors duration-500"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </div>
-
-              <span className="absolute bottom-7 left-1/2 -translate-x-1/2 rounded-full bg-towa-ink px-4 py-1 text-xs font-black tracking-[.2em] text-towa-bg">
-                EST. 2021
-              </span>
-            </div>
-          </motion.div>
+          <div className="relative flex size-[300px] items-center justify-center overflow-hidden rounded-full border-[3px] border-towa-ink bg-[#FAF8F5] shadow-[10px_12px_0_var(--towa-accent-2)] sm:size-[360px]">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="h-full w-full scale-105 object-cover"
+            >
+              <source src="/dc-assets/logo-towa-hero.webm" type="video/webm" />
+              <source src="/dc-assets/logo-towa-hero2.mp4" type="video/mp4" />
+            </video>
+          </div>
         </motion.div>
+      </motion.div>
+
+      <div className="relative z-20 -mt-4 w-full max-w-[380px] self-center sm:self-end">
+        <VoiceActivityCard />
       </div>
-      <VoiceActivityCard />
     </div>
   );
 }
@@ -330,61 +299,110 @@ export function VoiceActivityCard() {
   const reduce = useReducedMotion();
   const animate = isDesktop && !reduce;
 
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  const sortedChannels = [...voiceChannels].sort((a, b) => b.people - a.people);
+
+  const displayedChannels = isExpanded
+    ? sortedChannels
+    : sortedChannels.slice(0, 2);
+
   return (
-    <div className="absolute bottom-0 right-0 w-[min(100%,330px)] rotate-[-3deg] rounded-2xl border-2 border-towa-ink bg-towa-bg p-5 shadow-[7px_8px_0_var(--towa-ink)]">
-      <div className="mb-4 flex items-center justify-between">
+    <motion.div
+      layout
+      transition={{ type: "spring", stiffness: 400, damping: 30 }}
+      className="w-full rotate-[-1.5deg] rounded-2xl border-2 border-towa-ink bg-towa-bg p-4 sm:p-5 shadow-[7px_8px_0_var(--towa-ink)] transition-shadow duration-300 hover:shadow-[9px_10px_0_var(--towa-ink)]"
+    >
+      <div className="mb-3 flex items-center justify-between">
         <div>
-          <p className="text-xs font-black uppercase tracking-[.2em] text-towa-accent-2">
+          <p className="text-[10px] font-black uppercase tracking-[.2em] text-towa-accent-2">
             Live now
           </p>
-          <h3 className="mt-1 text-xl font-black text-towa-ink">
+          <h3 className="mt-0.5 text-lg font-black text-towa-ink">
             Voice Activity
           </h3>
         </div>
-        <span className="flex items-center gap-1 rounded-full bg-towa-live-bg px-2 py-1 text-[10px] font-black text-towa-live-text">
-          <span className="size-1.5 animate-pulse rounded-full bg-towa-accent-2" />{" "}
+        <span className="flex items-center gap-1.5 rounded-full bg-towa-live-bg px-2.5 py-1 text-[10px] font-black text-towa-live-text">
+          <span className="size-2 animate-pulse rounded-full bg-towa-accent-2" />{" "}
           LIVE
         </span>
       </div>
+
       <div className="flex flex-col gap-3">
         {!loading && voiceChannels.length === 0 && (
-          <p className="pt-3 text-sm text-towa-text-subtle">
-            Belum ada yang nge-VC.
+          <p className="pt-2 text-sm text-towa-text-subtle">
+            Belum ada warga yang nge-VC.
           </p>
         )}
-        <AnimatePresence initial={false}>
-          {voiceChannels.map((channel) => (
-            <motion.div
-              key={channel.channelId}
-              layout={animate}
-              initial={animate ? { opacity: 0, x: 12 } : false}
-              animate={animate ? { opacity: 1, x: 0 } : false}
-              exit={animate ? { opacity: 0, x: 12 } : undefined}
-              transition={{ type: "spring", stiffness: 400, damping: 26 }}
-              className="flex items-center justify-between border-t border-towa-border pt-3"
-            >
-              <div className="flex items-center gap-3">
-                <div className="flex -space-x-2">
-                  {channel.avatars.slice(0, 3).map((name, index) => (
+
+        <div
+          className={`flex flex-col gap-3 transition-all ${
+            isExpanded ? "max-h-[280px] overflow-y-auto pr-1" : ""
+          }`}
+        >
+          <AnimatePresence initial={false}>
+            {displayedChannels.map((channel) => (
+              <motion.div
+                key={channel.channelId}
+                layout={animate}
+                initial={animate ? { opacity: 0, y: 10 } : false}
+                animate={animate ? { opacity: 1, y: 0 } : false}
+                exit={animate ? { opacity: 0, y: -10 } : undefined}
+                className="rounded-xl border border-towa-border/80 bg-towa-bg-alt/60 p-2.5 transition-colors hover:bg-towa-bg-alt"
+              >
+                {/* NAMA VOICE CHANNEL */}
+                <div className="mb-2 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5 text-xs font-black text-towa-ink">
+                    <Volume2 className="size-3.5 text-towa-accent-2" />
+                    <span>{channel.name}</span>
+                  </div>
+                  <span className="rounded-full bg-towa-accent/20 px-2 py-0.5 text-[10px] font-black text-towa-ink">
+                    {channel.people} Warga
+                  </span>
+                </div>
+
+                {/* MEMBER CHIPS (AVATAR + NAMA USER) */}
+                <div className="flex flex-wrap gap-1.5">
+                  {channel.avatars.map((username, index) => (
                     <span
-                      key={name + index}
-                      className="flex size-7 items-center justify-center rounded-full border-2 border-towa-bg bg-towa-accent text-[9px] font-black"
+                      key={username + index}
+                      className="inline-flex items-center gap-1.5 rounded-full border border-towa-border/60 bg-towa-bg px-2.5 py-1 text-xs font-bold text-towa-text shadow-sm"
                     >
-                      {name[0]}
+                      {/* INISIAL AVATAR */}
+                      <span className="flex size-4 items-center justify-center rounded-full bg-towa-accent text-[9px] font-black uppercase text-towa-ink">
+                        {username[0]}
+                      </span>
+                      {/* NAMA MEMBER */}
+                      <span className="truncate max-w-[110px]">{username}</span>
                     </span>
                   ))}
                 </div>
-                <span className="text-sm font-bold text-towa-ink">
-                  {channel.name}
-                </span>
-              </div>
-              <span className="text-xs font-bold text-towa-text-subtle">
-                {channel.people}
-              </span>
-            </motion.div>
-          ))}
-        </AnimatePresence>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </div>
+
+        {/* BUTTON TOGGLE "LIHAT SEMUA" */}
+        {sortedChannels.length > 2 && (
+          <button
+            type="button"
+            onClick={() => setIsExpanded(!isExpanded)}
+            className="mt-1 flex items-center justify-center gap-1 text-xs font-black uppercase tracking-wider text-towa-accent-2 transition hover:underline"
+          >
+            {isExpanded ? (
+              <>
+                <span>Sembunyikan</span>
+                <ChevronUp className="size-3.5" />
+              </>
+            ) : (
+              <>
+                <span>Lihat Semua ({sortedChannels.length} VC Active)</span>
+                <ChevronDown className="size-3.5" />
+              </>
+            )}
+          </button>
+        )}
       </div>
-    </div>
+    </motion.div>
   );
 }
