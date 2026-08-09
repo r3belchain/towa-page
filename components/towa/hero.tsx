@@ -361,19 +361,34 @@ export function VoiceActivityCard() {
                   </span>
                 </div>
 
-                {/* MEMBER CHIPS (AVATAR + NAMA USER) */}
+
                 <div className="flex flex-wrap gap-1.5">
-                  {channel.avatars.map((username, index) => (
+                  {channel.members.map((member, index) => (
                     <span
-                      key={username + index}
+                      key={member.username + index}
                       className="inline-flex items-center gap-1.5 rounded-full border border-towa-border/60 bg-towa-bg px-2.5 py-1 text-xs font-bold text-towa-text shadow-sm"
                     >
-                      {/* INISIAL AVATAR */}
-                      <span className="flex size-4 items-center justify-center rounded-full bg-towa-accent text-[9px] font-black uppercase text-towa-ink">
-                        {username[0]}
-                      </span>
+                      {member.avatarUrl ? (
+                        <img
+                          src={member.avatarUrl}
+                          alt={member.username}
+                          className="size-4 rounded-full object-cover"
+                          onError={(e) => {
+                           
+                            (e.target as HTMLElement).style.display = "none";
+                          }}
+                        />
+                      ) : (
+                      
+                        <span className="flex size-4 items-center justify-center rounded-full bg-towa-accent text-[9px] font-black uppercase text-towa-ink">
+                          {member.username[0]}
+                        </span>
+                      )}
+
                       {/* NAMA MEMBER */}
-                      <span className="truncate max-w-[110px]">{username}</span>
+                      <span className="truncate max-w-[110px]">
+                        {member.username}
+                      </span>
                     </span>
                   ))}
                 </div>

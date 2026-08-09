@@ -144,11 +144,16 @@ export function useRecentMembers(limit = 10) {
   );
 }
 
+export type VoiceMember = {
+  username: string;
+  avatarUrl?: string;
+};
+
 export type VoiceChannelGroup = {
   channelId: string;
   name: string;
   people: number;
-  avatars: string[]; 
+  members: VoiceMember[];
 };
 
 export function useVoiceActivity() {
@@ -169,11 +174,16 @@ export function useVoiceActivity() {
           channelId: row.channel_id,
           name: row.channel_name,
           people: 0,
-          avatars: [],
+          members: [],
         };
       }
       acc[row.channel_id].people += 1;
-      acc[row.channel_id].avatars.push(row.username);
+
+      acc[row.channel_id].members.push({
+        username: row.username,
+        avatarUrl: row.avatar_url ?? undefined,
+      });
+
       return acc;
     }, {}),
   );
