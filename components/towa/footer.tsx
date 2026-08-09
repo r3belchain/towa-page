@@ -66,10 +66,10 @@ export function Footer() {
             <div className="inline-flex w-fit items-center gap-3 rounded-full border border-towa-border bg-towa-bg px-4 py-2.5 text-xs font-black shadow-sm transition-colors">
               <span className="relative flex size-2.5">
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex size-2.5 rounded-full bg-emerald-500" />
+                <span className="relative inline-flex size-2.5 rounded-full bg-rose-700" />
               </span>
               <span className="tracking-wider uppercase text-towa-text">
-                Bot &amp; Server Active
+                Bot &amp; Server Inactive
               </span>
             </div>
           </div>
