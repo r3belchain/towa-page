@@ -9,6 +9,7 @@ interface SectionHeadingProps {
   description?: string;
   align?: "left" | "center" | "right";
   inverted?: boolean;
+  disableTypewriter?: boolean;
   className?: string;
 }
 
@@ -18,6 +19,7 @@ export function SectionHeading({
   description,
   align = "left",
   inverted = false,
+  disableTypewriter = false, 
   className = "",
 }: SectionHeadingProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -45,20 +47,21 @@ export function SectionHeading({
     visible: { opacity: 1, y: 0 },
   };
 
-let titleColor = "text-towa-text";
-let descColor = "text-towa-text-muted";
+  let titleColor = "text-towa-text";
+  let descColor = "text-towa-text-muted";
 
-if (inverted) {
-  titleColor = "text-towa-bg [html[data-theme='cyberpunk']_&]:text-towa-text";
-  descColor =
-    "text-towa-text-subtle [html[data-theme='cyberpunk']_&]:text-towa-text-muted";
-}
+  if (inverted) {
+    titleColor = "text-towa-bg [html[data-theme='cyberpunk']_&]:text-towa-text";
+    descColor =
+      "text-towa-text-subtle [html[data-theme='cyberpunk']_&]:text-towa-text-muted";
+  }
 
   return (
     <div
       ref={containerRef}
       className={`max-w-2xl flex flex-col ${alignClasses[align]} ${className}`}
     >
+      {/* VERSI MOBILE (Selalu Statis) */}
       <div className="flex flex-col lg:hidden">
         {eyebrow && (
           <p className="text-xs font-black uppercase tracking-[.22em] text-towa-accent-2">
@@ -75,6 +78,7 @@ if (inverted) {
         )}
       </div>
 
+      {/* VERSI DESKTOP */}
       <div
         className={`hidden lg:flex lg:flex-col ${alignClasses[align]} w-full`}
       >
@@ -98,20 +102,36 @@ if (inverted) {
           {title}
         </motion.h2>
 
-        {description && (
-          <motion.p
-            variants={containerVariants}
-            initial="hidden"
-            animate={isInView ? "visible" : "hidden"}
-            className={`mt-4 text-lg leading-8 ${descColor}`}
-          >
-            {description.split("").map((char, index) => (
-              <motion.span key={index + char} variants={letterVariants}>
-                {char}
-              </motion.span>
-            ))}
-          </motion.p>
-        )}
+        {description &&
+          (disableTypewriter ? (
+         
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+              transition={{
+                duration: 0.6,
+                delay: 0.25,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className={`mt-4 text-lg leading-8 ${descColor}`}
+            >
+              {description}
+            </motion.p>
+          ) : (
+    
+            <motion.p
+              variants={containerVariants}
+              initial="hidden"
+              animate={isInView ? "visible" : "hidden"}
+              className={`mt-4 text-lg leading-8 ${descColor}`}
+            >
+              {description.split("").map((char, index) => (
+                <motion.span key={index + char} variants={letterVariants}>
+                  {char}
+                </motion.span>
+              ))}
+            </motion.p>
+          ))}
       </div>
     </div>
   );
