@@ -96,16 +96,36 @@ export const artworks = [
     title: "WithYou",
     artist: "Rage T",
     image: "/dc-assets/pamerkarya1.png",
+    type: "spotify", // Kategori: 'spotify', 'video', atau 'image'
+    link: "https://open.spotify.com/track/123456789", // Link lagu
   },
   {
     title: "hmmmm",
     artist: "Joan",
     image: "/dc-assets/pamerkarya3.jpg",
+    type: "image",
+    link: "https://youtube.com/watch?v=123456789", // Link video
   },
   {
     title: "My Original Character",
     artist: "Naomi",
     image: "/dc-assets/pamerkarya2.png",
+    type: "image",
+    link: "/dc-assets/pamerkarya2.png", // Link gambar full resolusi
+  },
+  {
+    title: "tes",
+    artist: "eclipse",
+    image: "/dc-assets/pamerkarya4.jpg",
+    type: "image",
+    link: "/dc-assets/pamerkarya4.jpg", // Link gambar full resolusi
+  },
+  {
+    title: "tes123",
+    artist: "tristan",
+    image: "/dc-assets/pamerkarya5.png",
+    type: "image",
+    link: "/dc-assets/pamerkarya5.png", // Link gambar full resolusi
   },
 ];
 
