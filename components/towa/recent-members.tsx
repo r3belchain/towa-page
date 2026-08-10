@@ -32,7 +32,7 @@ export function RecentMembers() {
       id="warga-baru"
       className="w-full bg-towa-bg py-24 transition-colors duration-500"
     >
-      <div className="mx-auto max-w-7xl px-5 lg:px-8 overflow-hidden">
+      <div className="mx-auto max-w-7xl overflow-hidden px-5 lg:px-8">
         <SectionHeading eyebrow="Baru gabung" title="10 Warga Terbaru" />
 
         <motion.div
@@ -53,9 +53,10 @@ export function RecentMembers() {
             </p>
           )}
 
-          {members.map((member) => (
+          {members.map((member, index) => (
             <motion.span
-              key={member.discord_user_id + member.event_at}
+              /* 🔹 Diubah: Menggunakan gabungan ID + Index agar key 100% unik dan lulus type-check */
+              key={`${member.discord_user_id}-${index}`}
               variants={bubbleVariants}
               whileHover={{ y: -4, scale: 1.05 }}
               className="group inline-flex items-center gap-3 rounded-full border border-towa-border bg-towa-bg-alt py-1.5 pl-1.5 pr-5 text-sm font-bold text-towa-text shadow-sm transition-colors duration-300 hover:border-towa-accent-2 hover:shadow-md"
@@ -70,7 +71,7 @@ export function RecentMembers() {
                   }}
                 />
               </div>
-              <span className="truncate max-w-[120px] sm:max-w-none">
+              <span className="max-w-[120px] truncate sm:max-w-none">
                 {member.username}
               </span>
             </motion.span>
