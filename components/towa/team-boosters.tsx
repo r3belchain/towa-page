@@ -66,7 +66,9 @@ export function TeamAndBoosters() {
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[1.1fr_.9fr]">
+          {/* ========================================== */}
           {/* BAGIAN KIRI: RUKUN WARGA */}
+          {/* ========================================== */}
           <div>
             <SectionHeading
               eyebrow="Yang jaga rumah"
@@ -105,49 +107,24 @@ export function TeamAndBoosters() {
             </div>
           </div>
 
-          {/* BAGIAN KANAN: BOOSTERS & DONORS */}
-          <div className="rounded-3xl border-2 border-towa-border bg-towa-bg p-7 transition-colors duration-500">
+          {/* ========================================== */}
+          {/* BAGIAN KANAN: DONORS & BOOSTERS */}
+          {/* ========================================== */}
+          <div className="flex h-fit flex-col rounded-3xl border-2 border-towa-border bg-towa-bg p-7 shadow-sm transition-colors duration-500">
             <Trophy className="size-9 text-towa-accent-2" />
             <p className="mt-6 text-xs font-black uppercase tracking-[.2em] text-towa-accent-2">
               Support system
             </p>
             <h2 className="mt-2 text-4xl font-black tracking-[-.04em] text-towa-text">
-              Server Boosters &amp; Donors
+              Donors &amp; Boosters
             </h2>
             <p className="mt-4 leading-7 text-towa-text-muted">
               Terima kasih untuk para warga yang bikin rumah ini makin nyaman
               dan penuh warna.
             </p>
 
-            {/* SERVER BOOSTERS */}
+            {/* 1. DONORS DI ATAS (Tanpa Garis Batas Atas) */}
             <div className="mt-8">
-              <p className="mb-3 text-xs font-black uppercase tracking-wider text-towa-text-subtle">
-                Server Boosters
-              </p>
-              <div className="flex flex-wrap gap-2">
-                {!boostersLoading && boosters.length === 0 && (
-                  <p className="text-sm text-towa-text-subtle">
-                    Belum ada booster.
-                  </p>
-                )}
-                {boosters.map((booster) => (
-                  <span
-                    key={booster.discord_user_id}
-                    className="inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg-alt py-1 pl-1 pr-3 text-sm font-bold text-towa-text transition-colors duration-300"
-                  >
-                    <img
-                      src={booster.avatar_url}
-                      alt=""
-                      className="size-7 rounded-full object-cover"
-                    />
-                    {booster.username}
-                  </span>
-                ))}
-              </div>
-            </div>
-
-            {/* DONORS (LIVE DATA) */}
-            <div className="mt-6 border-t border-towa-border pt-6 transition-colors duration-500">
               <p className="mb-3 text-xs font-black uppercase tracking-wider text-towa-text-subtle">
                 Donors
               </p>
@@ -172,6 +149,40 @@ export function TeamAndBoosters() {
                       }
                     />
                   ))}
+              </div>
+            </div>
+
+            {/* 2. SERVER BOOSTERS DI BAWAH (Dengan Scroll & Garis Batas) */}
+            <div className="mt-6 flex min-h-0 flex-col border-t border-towa-border pt-6 transition-colors duration-500">
+              <p className="mb-3 text-xs font-black uppercase tracking-wider text-towa-text-subtle">
+                Server Boosters
+              </p>
+
+              {/* Wadah Scroll Estetik */}
+              <div className="towa-scrollbar flex max-h-[220px] flex-wrap content-start gap-2 overflow-y-auto overscroll-contain py-2 pr-2 sm:max-h-[260px] [mask-image:linear-gradient(to_bottom,transparent,black_12px,black_calc(100%-12px),transparent)]">
+                {!boostersLoading && boosters.length === 0 && (
+                  <p className="text-sm text-towa-text-subtle">
+                    Belum ada booster.
+                  </p>
+                )}
+                {boosters.map((booster) => (
+                  <span
+                    key={booster.discord_user_id}
+                    className="inline-flex shrink-0 items-center gap-2 rounded-full border border-towa-border bg-towa-bg-alt py-1 pl-1 pr-3 text-sm font-bold text-towa-text shadow-sm transition-all duration-300 hover:scale-105 hover:border-towa-accent-2"
+                  >
+                    <img
+                      src={booster.avatar_url}
+                      alt=""
+                      className="size-7 rounded-full object-cover"
+                      onError={(e) => {
+                        e.currentTarget.style.display = "none";
+                      }}
+                    />
+                    <span className="max-w-[100px] truncate sm:max-w-[140px]">
+                      {booster.username}
+                    </span>
+                  </span>
+                ))}
               </div>
             </div>
           </div>

@@ -55,7 +55,7 @@ export function RecentMembers() {
 
           {members.map((member, index) => (
             <motion.span
-              /* 🔹 Diubah: Menggunakan gabungan ID + Index agar key 100% unik dan lulus type-check */
+            
               key={`${member.discord_user_id}-${index}`}
               variants={bubbleVariants}
               whileHover={{ y: -4, scale: 1.05 }}

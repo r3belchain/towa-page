@@ -23,8 +23,8 @@ export function Footer() {
 
   return (
     <footer className="relative flex min-h-screen w-full flex-col justify-between bg-towa-bg-alt text-towa-text transition-colors duration-500">
-      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-5 pb-10 pt-24 lg:px-8">
-        <div className="flex flex-col items-start justify-center pt-8 pb-16">
+      <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col justify-between px-5 pb-10 pt-10 lg:px-8 lg:pt-24">
+        <div className="flex flex-col items-start justify-center pt-0 pb-16 lg:pt-8">
           <p className="mb-3 text-xs font-black uppercase tracking-[0.25em] text-towa-accent-2">
             Di TOWA kamu bisa
           </p>
@@ -184,7 +184,7 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="...">
+        <div className="mt-10 sm:mt-0 ...">
           <p className="text-center text-xs text-towa-text-subtle sm:text-left">
             <span className="font-bold text-towa-text">
               © {currentYear} TOWA

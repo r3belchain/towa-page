@@ -34,13 +34,13 @@ const gridVariants: Variants = {
 const cardVariants: Variants = {
   hidden: { opacity: 0, y: 80, rotateX: 30, scale: 0.9, rotateZ: 0 },
 
+  // Ubah rotasi Z menjadi 0 mutlak untuk semua kartu
   show: (index: number) => ({
     opacity: 1,
     y: 0,
     rotateX: 0,
     scale: 1,
-
-    rotateZ: index === 0 ? -1 : index === 3 ? 1 : 0,
+    rotateZ: 0, // 👈 KUNCI: Semua kartu dipaksa berdiri tegak lurus
     transition: {
       type: "spring",
       stiffness: 110,

@@ -101,7 +101,8 @@ export function Hero() {
       className="relative overflow-hidden bg-towa-bg"
     >
       <Doodles />
-      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-16 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pb-28 lg:pt-24">
+      {/* pt-32 tetap ada agar aman dari overlap Navbar di mobile */}
+      <div className="mx-auto grid max-w-7xl items-center gap-14 px-5 pb-20 pt-32 lg:grid-cols-[1.02fr_.98fr] lg:px-8 lg:pb-28 lg:pt-24">
         <div className="relative z-10">
           <motion.div
             style={animate ? { opacity: textOpacity, y: textY } : undefined}
@@ -193,53 +194,7 @@ export function Hero() {
               Cari teman mabar 24 jam? Mau deep talk atau bahas anime? Di sini
               tempatnya. Satu server, banyak cerita.
             </motion.p>
-            <motion.div className="mt-8 flex flex-wrap gap-2 text-sm font-bold md:hidden">
-              <motion.a
-                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-                href="#tentang"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 500, damping: 12 }}
-              >
-                Tentang
-              </motion.a>
-              <motion.a
-                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-                href="#momen"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 500, damping: 12 }}
-              >
-                Kirim Momen
-              </motion.a>
-              <motion.a
-                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-                href="#karya"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 500, damping: 12 }}
-              >
-                Pamer Karya
-              </motion.a>
-              <motion.a
-                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-                href="#warga"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 500, damping: 12 }}
-              >
-                Rukun Warga
-              </motion.a>
-              <motion.a
-                className="rounded-full border border-towa-border px-4 py-2 hover:border-towa-accent-2"
-                href="#faq"
-                whileHover={reduce ? undefined : { y: -2 }}
-                whileTap={reduce ? undefined : { y: 1, scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 500, damping: 12 }}
-              >
-                FAQ
-              </motion.a>
-            </motion.div>
+
           </motion.div>
 
           <div className="mt-12 flex flex-wrap gap-8 border-t border-towa-border pt-6">
@@ -299,7 +254,6 @@ export function VoiceActivityCard() {
   const reduce = useReducedMotion();
   const animate = isDesktop && !reduce;
 
-  // Langsung urutkan semua channel berdasarkan jumlah warga tanpa dipotong
   const sortedChannels = [...voiceChannels].sort((a, b) => b.people - a.people);
 
   return (
@@ -332,14 +286,7 @@ export function VoiceActivityCard() {
           </p>
         )}
 
-        {/* 
-          Wadah Scroll Ajaib (The Magic Container)
-          - max-h: Disesuaikan untuk proporsi hero section (cukup untuk 2-3 list, sisanya scroll)
-          - mask-image: Membuat gradasi transparan 16px di atas & bawah agar scroll pudar halus
-          - overscroll-contain: Mencegah layar website ikut terseret saat scroll mentok di mobile
-          - scrollbar:hidden: Menghilangkan batang scroll jelek
-        */}
-        <div className="towa-scrollbar flex max-h-[260px] flex-col gap-3 overflow-y-auto overscroll-contain py-2 sm:max-h-[320px] pr-2 [mask-image:linear-gradient(to_bottom,transparent,black_16px,black_calc(100%-16px),transparent)]">
+        <div className="towa-scrollbar flex max-h-[260px] flex-col gap-3 overflow-y-auto overscroll-contain py-2 pr-2 sm:max-h-[320px] [mask-image:linear-gradient(to_bottom,transparent,black_16px,black_calc(100%-16px),transparent)]">
           <AnimatePresence initial={false}>
             {sortedChannels.map((channel) => (
               <motion.div
@@ -386,7 +333,7 @@ export function VoiceActivityCard() {
                         </span>
                       )}
 
-                      {/* NAMA MEMBER (Di-truncate agar rapi di HP kecil) */}
+           
                       <span className="max-w-[85px] truncate sm:max-w-[110px]">
                         {member.username}
                       </span>

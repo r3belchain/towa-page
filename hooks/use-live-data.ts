@@ -21,8 +21,7 @@ type MemberRow = {
   discord_user_id: string;
   username: string;
   avatar_url: string;
-  event_type: "join" | "leave";
-  created_at: string; // 👈 DIPERBAIKI: Sebelumnya event_at
+  joined_at: string;
 };
 
 type VoiceActivityRow = {
@@ -129,13 +128,12 @@ export function useBoosters() {
 
 export function useRecentMembers(limit = 10) {
   return useRealtimeTable<MemberRow[]>(
-    "members",
+    "recent_members",
     async () => {
       const { data, error } = await supabase
-        .from("members")
+        .from("recent_members")
         .select("*")
-        .eq("event_type", "join")
-        .order("created_at", { ascending: false }) // 👈 DIPERBAIKI: Sebelumnya event_at
+        .order("joined_at", { ascending: false })
         .limit(limit);
       if (error) throw error;
       return data ?? [];
@@ -143,7 +141,6 @@ export function useRecentMembers(limit = 10) {
     [],
   );
 }
-
 export type VoiceMember = {
   username: string;
   avatarUrl?: string;

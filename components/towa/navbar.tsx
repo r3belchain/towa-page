@@ -3,39 +3,66 @@
 import { Logo } from "@/components/ui/logo";
 import { useTheme } from "@/lib/theme-provider";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Zap } from "lucide-react";
+import { ArrowUpRight, Zap, Sun } from "lucide-react";
 import { useState } from "react";
 
+// ==========================================
+// 🔹 KOMPONEN TOGGLE (ANTI-BUG MOBILE)
+// ==========================================
 function CyberpunkToggle() {
-  const { theme, toggleTheme, isDesktop } = useTheme();
+  const { theme, toggleTheme } = useTheme(); 
   const shouldReduceMotion = useReducedMotion();
-
-  if (!isDesktop) return null;
-
   const isCyberpunk = theme === "cyberpunk";
 
   return (
-    <motion.button
-      type="button"
-      onClick={toggleTheme}
-      aria-pressed={isCyberpunk}
-      whileHover={shouldReduceMotion ? undefined : { y: -2 }}
-      whileTap={shouldReduceMotion ? undefined : { y: 1, scale: 0.97 }}
-      transition={
-        shouldReduceMotion
-          ? { duration: 0 }
-          : { type: "spring", stiffness: 500, damping: 12 }
-      }
-    
-      className="inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg/50 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2 hover:bg-towa-bg"
-    >
-      <Zap className="size-3.5" />
-      {isCyberpunk ? "Light mode" : "Dark mode"}
-    </motion.button>
+    <>
+      {/* 💻 VERSI DESKTOP (Framer Motion - Tetap Aman) */}
+      <motion.button
+        type="button"
+        onClick={toggleTheme}
+        aria-pressed={isCyberpunk}
+        whileHover={shouldReduceMotion ? undefined : { y: -2 }}
+        whileTap={shouldReduceMotion ? undefined : { y: 1, scale: 0.97 }}
+        transition={
+          shouldReduceMotion
+            ? { duration: 0 }
+            : { type: "spring", stiffness: 500, damping: 12 }
+        }
+        className="hidden md:inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg/50 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2 hover:bg-towa-bg"
+      >
+        <Zap className="size-3.5" />
+        {isCyberpunk ? "Light mode" : "Dark mode"}
+      </motion.button>
+
+      {/* 📱 VERSI MOBILE (Native Button - Anti Nge-bug di HP) */}
+      <button
+        type="button"
+        onClick={(e) => {
+          // Jaring pengaman: Untuk nge-test di Console apakah klik masuk
+          console.log("👉 Tombol Mobile Ditekan!"); 
+          toggleTheme();
+        }}
+        aria-label="Toggle Theme"
+        aria-pressed={isCyberpunk}
+        // 1. Pakai tag <button> biasa, BUKAN <motion.button>
+        // 2. Tambah 'relative z-50' agar tidak tertimpa elemen gaib
+        // 3. Tambah 'touch-manipulation' agar klik instan tanpa delay 300ms
+        // 4. Efek pantulan diatur murni pakai CSS (active:scale-95)
+        className="relative z-50 flex touch-manipulation md:hidden size-9 shrink-0 items-center justify-center rounded-full border-2 border-towa-ink bg-towa-bg shadow-[2px_2px_0_var(--towa-ink)] transition-all hover:shadow-[4px_4px_0_var(--towa-ink)] active:scale-95 active:shadow-[1px_1px_0_var(--towa-ink)]"
+      >
+        {isCyberpunk ? (
+          <Zap className="size-4 fill-towa-accent-2 text-towa-accent-2" />
+        ) : (
+          <Sun className="size-4 text-towa-accent-2" />
+        )}
+      </button>
+    </>
   );
 }
 
-
+// ==========================================
+// 🔹 DATA NAVIGASI
+// ==========================================
 const navLinks = [
   { name: "Tentang", href: "#tentang" },
   { name: "Momen Asbun", href: "#momen" },
@@ -44,6 +71,9 @@ const navLinks = [
   { name: "FAQ", href: "#faq" },
 ];
 
+// ==========================================
+// 🔹 KOMPONEN NAVBAR UTAMA
+// ==========================================
 export function Navbar() {
   const shouldReduceMotion = useReducedMotion();
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
@@ -51,17 +81,19 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-4 top-4 z-40 mx-auto max-w-6xl rounded-full border border-towa-border/50 bg-towa-bg/75 px-5 py-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-colors duration-500">
       <div className="flex items-center justify-between gap-4">
-        {/* LOGO + TULISAN TOWA (Satu Tag Anchor) */}
+        {/* LOGO + TULISAN TOWA */}
         <a
           href="#top"
           aria-label="TOWA home"
           className="flex shrink-0 items-center gap-1 transition-transform active:scale-95"
         >
           <Logo />
-          <span className="text-xl mt-1 font-black tracking-wider text-[#ce8e0d] sm:text-2xl">
+          <span className="mt-1 text-xl font-black tracking-wider text-[#ce8e0d] sm:text-2xl">
             TOWA
           </span>
         </a>
+
+        {/* MENU TENGAH (Hanya Desktop) */}
         <nav
           className="hidden items-center md:flex"
           onMouseLeave={() => setHoveredIndex(null)}
@@ -83,17 +115,17 @@ export function Navbar() {
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-
               <span className="relative z-10">{link.name}</span>
             </a>
           ))}
         </nav>
 
+        {/* SISI KANAN: TOGGLE & JOIN SERVER */}
         <div className="flex items-center gap-3">
           <CyberpunkToggle />
 
           <motion.a
-            className="inline-flex items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
+            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
             href="https://discord.gg/SZbfKfU2NY"
             target="_blank"
             rel="noreferrer"
