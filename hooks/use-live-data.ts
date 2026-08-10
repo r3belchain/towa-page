@@ -22,7 +22,7 @@ type MemberRow = {
   username: string;
   avatar_url: string;
   event_type: "join" | "leave";
-  event_at: string;
+  created_at: string; // 👈 DIPERBAIKI: Sebelumnya event_at
 };
 
 type VoiceActivityRow = {
@@ -135,10 +135,10 @@ export function useRecentMembers(limit = 10) {
         .from("members")
         .select("*")
         .eq("event_type", "join")
-        .order("event_at", { ascending: false })
+        .order("created_at", { ascending: false }) // 👈 DIPERBAIKI: Sebelumnya event_at
         .limit(limit);
       if (error) throw error;
-      return data ?? []; 
+      return data ?? [];
     },
     [],
   );
