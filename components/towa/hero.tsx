@@ -299,20 +299,16 @@ export function VoiceActivityCard() {
   const reduce = useReducedMotion();
   const animate = isDesktop && !reduce;
 
-  const [isExpanded, setIsExpanded] = useState(false);
-
+  // Langsung urutkan semua channel berdasarkan jumlah warga tanpa dipotong
   const sortedChannels = [...voiceChannels].sort((a, b) => b.people - a.people);
-
-  const displayedChannels = isExpanded
-    ? sortedChannels
-    : sortedChannels.slice(0, 2);
 
   return (
     <motion.div
       layout
       transition={{ type: "spring", stiffness: 400, damping: 30 }}
-      className="w-full rotate-[-1.5deg] rounded-2xl border-2 border-towa-ink bg-towa-bg p-4 sm:p-5 shadow-[7px_8px_0_var(--towa-ink)] transition-shadow duration-300 hover:shadow-[9px_10px_0_var(--towa-ink)]"
+      className="w-full rotate-[-1.5deg] rounded-2xl border-2 border-towa-ink bg-towa-bg p-4 shadow-[7px_8px_0_var(--towa-ink)] transition-shadow duration-300 hover:shadow-[9px_10px_0_var(--towa-ink)] sm:p-5"
     >
+      {/* 🔹 HEADER SECTION */}
       <div className="mb-3 flex items-center justify-between">
         <div>
           <p className="text-[10px] font-black uppercase tracking-[.2em] text-towa-accent-2">
@@ -328,40 +324,47 @@ export function VoiceActivityCard() {
         </span>
       </div>
 
-      <div className="flex flex-col gap-3">
+      {/* 🔹 CONTENT SECTION */}
+      <div className="flex flex-col">
         {!loading && voiceChannels.length === 0 && (
-          <p className="pt-2 text-sm text-towa-text-subtle">
+          <p className="py-6 text-center text-sm font-medium text-towa-text-subtle">
             Belum ada warga yang nge-VC.
           </p>
         )}
 
-        <div
-          className={`flex flex-col gap-3 transition-all ${
-            isExpanded ? "max-h-[280px] overflow-y-auto pr-1" : ""
-          }`}
-        >
+        {/* 
+          Wadah Scroll Ajaib (The Magic Container)
+          - max-h: Disesuaikan untuk proporsi hero section (cukup untuk 2-3 list, sisanya scroll)
+          - mask-image: Membuat gradasi transparan 16px di atas & bawah agar scroll pudar halus
+          - overscroll-contain: Mencegah layar website ikut terseret saat scroll mentok di mobile
+          - scrollbar:hidden: Menghilangkan batang scroll jelek
+        */}
+        <div className="towa-scrollbar flex max-h-[260px] flex-col gap-3 overflow-y-auto overscroll-contain py-2 sm:max-h-[320px] pr-2 [mask-image:linear-gradient(to_bottom,transparent,black_16px,black_calc(100%-16px),transparent)]">
           <AnimatePresence initial={false}>
-            {displayedChannels.map((channel) => (
+            {sortedChannels.map((channel) => (
               <motion.div
                 key={channel.channelId}
                 layout={animate}
                 initial={animate ? { opacity: 0, y: 10 } : false}
                 animate={animate ? { opacity: 1, y: 0 } : false}
                 exit={animate ? { opacity: 0, y: -10 } : undefined}
-                className="rounded-xl border border-towa-border/80 bg-towa-bg-alt/60 p-2.5 transition-colors hover:bg-towa-bg-alt"
+                // shrink-0 mencegah kartu gepeng saat flexbox penuh
+                className="shrink-0 rounded-xl border border-towa-border/80 bg-towa-bg-alt/60 p-2.5 transition-colors hover:bg-towa-bg-alt"
               >
                 {/* NAMA VOICE CHANNEL */}
                 <div className="mb-2 flex items-center justify-between">
                   <div className="flex items-center gap-1.5 text-xs font-black text-towa-ink">
                     <Volume2 className="size-3.5 text-towa-accent-2" />
-                    <span>{channel.name}</span>
+                    <span className="max-w-[120px] truncate sm:max-w-[150px]">
+                      {channel.name}
+                    </span>
                   </div>
-                  <span className="rounded-full bg-towa-accent/20 px-2 py-0.5 text-[10px] font-black text-towa-ink">
+                  <span className="shrink-0 rounded-full bg-towa-accent/20 px-2 py-0.5 text-[10px] font-black text-towa-ink">
                     {channel.people} Warga
                   </span>
                 </div>
 
-
+                {/* LIST MEMBER DI DALAM VC */}
                 <div className="flex flex-wrap gap-1.5">
                   {channel.members.map((member, index) => (
                     <span
@@ -374,19 +377,17 @@ export function VoiceActivityCard() {
                           alt={member.username}
                           className="size-4 rounded-full object-cover"
                           onError={(e) => {
-                           
                             (e.target as HTMLElement).style.display = "none";
                           }}
                         />
                       ) : (
-                      
                         <span className="flex size-4 items-center justify-center rounded-full bg-towa-accent text-[9px] font-black uppercase text-towa-ink">
                           {member.username[0]}
                         </span>
                       )}
 
-                      {/* NAMA MEMBER */}
-                      <span className="truncate max-w-[110px]">
+                      {/* NAMA MEMBER (Di-truncate agar rapi di HP kecil) */}
+                      <span className="max-w-[85px] truncate sm:max-w-[110px]">
                         {member.username}
                       </span>
                     </span>
@@ -396,27 +397,6 @@ export function VoiceActivityCard() {
             ))}
           </AnimatePresence>
         </div>
-
-        {/* BUTTON TOGGLE "LIHAT SEMUA" */}
-        {sortedChannels.length > 2 && (
-          <button
-            type="button"
-            onClick={() => setIsExpanded(!isExpanded)}
-            className="mt-1 flex items-center justify-center gap-1 text-xs font-black uppercase tracking-wider text-towa-accent-2 transition hover:underline"
-          >
-            {isExpanded ? (
-              <>
-                <span>Sembunyikan</span>
-                <ChevronUp className="size-3.5" />
-              </>
-            ) : (
-              <>
-                <span>Lihat Semua ({sortedChannels.length} VC Active)</span>
-                <ChevronDown className="size-3.5" />
-              </>
-            )}
-          </button>
-        )}
       </div>
     </motion.div>
   );

@@ -189,3 +189,29 @@ h4 {
 .towa-cup-xl span::after {
   left: 49px;
 }
+
+
+.towa-scrollbar::-webkit-scrollbar {
+  width: 5px; 
+}
+
+.towa-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+  margin-block: 12px; 
+}
+
+.towa-scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--towa-border);
+  border-radius: 10px;
+  border: 1px solid transparent; 
+  background-clip: padding-box;
+}
+
+.towa-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: var(--towa-accent-2);
+}
+
+.towa-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--towa-border) transparent;
+}
