@@ -22,7 +22,6 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ThemeProvider>
           {children}
           {process.env.NODE_ENV === "production" && <Analytics />}
-          <DevNoticePill />
         </ThemeProvider>
       </body>
     </html>
