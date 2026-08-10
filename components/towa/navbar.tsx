@@ -38,7 +38,7 @@ function CyberpunkToggle() {
 
 const navLinks = [
   { name: "Tentang", href: "#tentang" },
-  { name: "Kirim Momen", href: "#momen" },
+  { name: "Momen Asbun", href: "#momen" },
   { name: "Pamer Karya", href: "#karya" },
   { name: "Rukun Warga", href: "#warga" },
   { name: "FAQ", href: "#faq" },
@@ -51,15 +51,17 @@ export function Navbar() {
   return (
     <header className="fixed inset-x-4 top-4 z-40 mx-auto max-w-6xl rounded-full border border-towa-border/50 bg-towa-bg/75 px-5 py-2.5 shadow-[0_8px_30px_rgb(0,0,0,0.06)] backdrop-blur-md transition-colors duration-500">
       <div className="flex items-center justify-between gap-4">
-        {/* LOGO */}
+        {/* LOGO + TULISAN TOWA (Satu Tag Anchor) */}
         <a
           href="#top"
           aria-label="TOWA home"
-          className="flex shrink-0 items-center transition-transform active:scale-95" 
+          className="flex shrink-0 items-center gap-1 transition-transform active:scale-95"
         >
           <Logo />
+          <span className="text-xl mt-1 font-black tracking-wider text-[#ce8e0d] sm:text-2xl">
+            TOWA
+          </span>
         </a>
-
         <nav
           className="hidden items-center md:flex"
           onMouseLeave={() => setHoveredIndex(null)}

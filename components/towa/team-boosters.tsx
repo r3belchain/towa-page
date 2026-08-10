@@ -71,7 +71,7 @@ export function TeamAndBoosters() {
             <SectionHeading
               eyebrow="Yang jaga rumah"
               title="Rukun Warga"
-              description="Orang-orang di balik obrolan tetap hangat, aman, dan seru."
+              description="Orang-orang yang memastikan obrolan tetap hangat, aman, dan seru."
             />
 
             <div className="mt-10 flex flex-wrap gap-2.5">

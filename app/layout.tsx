@@ -6,8 +6,8 @@ import './globals.css'
 import { DevNoticePill } from "@/components/ui/dev-notice-pill";
 
 export const metadata: Metadata = {
-  title: 'TOWA — Tongkrongan Warga Asbun',
-  description: 'Discord community buat mabar, ngobrol, kirim momen, dan pamer karya.',
+  title: 'TOWA | Tongkrongan Warga Asbun',
+  description: 'Server discord buat mabar, bahas anime, dan asbun bareng.',
 }
 
 export const viewport: Viewport = {

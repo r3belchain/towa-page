@@ -162,7 +162,7 @@ export function RulesFaq() {
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.35, ease: SMOOTH_EASE }}
                     >
-                      <p className="border-t border-towa-border px-5 pb-5 pt-4 leading-7 text-towa-text-muted transition-colors duration-500">
+                      <p className="border-t border-towa-border px-5 pb-5 pt-4 leading-7 text-towa-text-muted transition-colors duration-500 whitespace-pre-line">
                         {faq.answer}
                       </p>
                     </motion.div>

@@ -97,14 +97,14 @@ export const artworks = [
     artist: "Rage T",
     image: "/dc-assets/pamerkarya1.png",
     type: "spotify", // Kategori: 'spotify', 'video', atau 'image'
-    link: "https://open.spotify.com/track/123456789", // Link lagu
+    link: "https://open.spotify.com/track/2VcXdUQFWwi6r9OgXogI28?si=_tvK5g3lTeaCquZ-qmEZew&utm_source=copy-link", // Link lagu
   },
   {
     title: "hmmmm",
     artist: "Joan",
     image: "/dc-assets/pamerkarya3.jpg",
     type: "image",
-    link: "https://youtube.com/watch?v=123456789", // Link video
+    link: "/dc-assets/pamerkarya3.jpg", // Link video
   },
   {
     title: "My Original Character",
@@ -114,15 +114,15 @@ export const artworks = [
     link: "/dc-assets/pamerkarya2.png", // Link gambar full resolusi
   },
   {
-    title: "tes",
-    artist: "eclipse",
+    title: "Digital Illustration",
+    artist: "tristan",
     image: "/dc-assets/pamerkarya4.jpg",
     type: "image",
     link: "/dc-assets/pamerkarya4.jpg", // Link gambar full resolusi
   },
   {
-    title: "tes123",
-    artist: "tristan",
+    title: "Digital Painting",
+    artist: "eclipse",
     image: "/dc-assets/pamerkarya5.png",
     type: "image",
     link: "/dc-assets/pamerkarya5.png", // Link gambar full resolusi
@@ -365,18 +365,42 @@ export const boosters: Avatar[] = [
 
 export const faqs = [
   {
-    question: "Gabung TOWA bayar atau gratis?",
-    answer:
-      "Gratis dong. TOWA terbuka untuk siapa saja yang ingin ngobrol, mabar, dan cari teman baru.",
-  },
-  { question: "Boleh promosi karya atau komunitas?", answer: "Tidak Boleh yaa.." },
-  {
-    question: "Apakah wajib aktif setiap hari?",
-    answer:
-      "Tidak wajib. Datang kapan saja saat butuh teman ngobrol atau ingin berbagi momen.",
+    question:
+      "Aku baru gabung nih, gimana sih cara mulai nongkrong di Discord TOWA?",
+    answer: `Cara main di sini super simpel! Di TOWA, aktivitas nongkrong dibagi jadi 2 area utama:
+• 💬 Area Ngetik (Text Channel): Pas buat yang lagi mager open mic, di tempat umum, atau nyaman interaksi via tulisan/meme.
+• 🔊 Area Ngomong (Voice Channel): Tempat buat yang mau denger suara human asli, ngobrol langsung, atau sekadar dengerin warga yapping.`,
   },
   {
-    question: "Bagaimana cara ikut event?",
-    answer: "Pantau kanal pengumuman agar tidak ketinggalan keseruannya.",
+    question:
+      "Kalau aku lagi mager open mic atau di tempat umum, bisa nongkrong di mana aja?",
+    answer: `Kamu bisa meluncur ke Area Ngetik (Text Channels). Pilih channel sesuai mood kamu:
+• 💬 obrolan-random : Alun-alun utama warga. Bebas bahas topik apa aja, asbun (asal bunyi), dan gak perlu jaim.
+• 💬 asbun-apapun : Lapak khusus lempar jokes, meme, atau bahasan super random di luar nalar.
+• ❤️‍🩹 curhat : Tempat numpahin keluh kesah, galau, atau capek sama real life. Warga siap dengerin.
+• 🔎 cari-pemain : Lapak kumpul buat nyari party mabar game.`,
+  },
+  {
+    question: "Gimana caranya kalau aku mau cari teman mabar game?",
+    answer: `Tinggal ikuti 3 langkah simpel ini:
+1. Masuk ke channel 🔎・cari-pemain.
+2. Drop atau sebutkan nama game yang mau dimainkan (Roblox, Mobile Legends, Valorant, dll).
+3. Tulis sisa slot pemain yang kamu butuhkan. Warga yang lagi standby bakal langsung nyaut buat mabar bareng!`,
+  },
+  {
+    question:
+      "Kalau mau coba masuk Voice Channel (VC) tapi masih malu/pemula, gimana?",
+    answer: `Santai aja, gak perlu canggung! Ini tips nongkrong di VC buat pemula:
+• Lompat Langsung: Tinggal klik dan masuk ke Ruang Suara / Tempat Nongkrong.
+• Boleh Mute (Diam Dulu): Kalau di awal masih malu buat ngomong, masuk aja dalam keadaan mute buat dengerin orang ngobrol.
+• Sapa Pelan-pelan: Nanti kalau udah merasa nyaman, tinggal unmute dan sapa warga lainnya!`,
+  },
+  {
+    question:
+      "Apakah aman kalau aku mau numpahin cerita atau curhat masalah pribadi?",
+    answer: `Sangat aman! TOWA menyediakan ruang aman buat warga:
+• Langsung meluncur ke channel ❤️‍🩹・curhat.
+• Bebas numpahin rasa capek real life, galau, atau keluh kesah.
+• Warga TOWA selalu siap mendengarkan tanpa menghakimi.`,
   },
 ];

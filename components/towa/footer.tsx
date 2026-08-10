@@ -1,8 +1,9 @@
 "use client";
 
-import { ArrowUp, MessageSquare, Video, Camera } from "lucide-react";
+import { ArrowUp, MessageSquare, Video, CircleFadingPlus } from "lucide-react";
 import { Logo } from "@/components/ui/logo";
 import Typewriter from "@/components/ui/typewriter";
+import { motion } from "framer-motion";
 
 export function Footer() {
   const scrollToTop = () => {
@@ -18,6 +19,8 @@ export function Footer() {
     "Curhat kehidupan.",
     "Pamer karya keren.",
   ];
+
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="relative flex min-h-screen w-full flex-col justify-between bg-towa-bg-alt text-towa-text transition-colors duration-500">
@@ -56,8 +59,17 @@ export function Footer() {
         <div className="grid gap-12 border-t border-towa-border/30 pt-16 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
           <div className="flex flex-col justify-between gap-6">
             <div>
-              <Logo className="h-12 sm:h-14" />
-              <p className="mt-4 max-w-xs text-sm leading-relaxed text-towa-text-muted">
+              <a
+                href="#top"
+                aria-label="TOWA home"
+                className="flex shrink-0 items-center gap-1 transition-transform active:scale-95"
+              >
+                <Logo className="h-14 sm:h-16" />
+                <span className="text-xl mt-3 font-black tracking-wider text-[#ce8e0d] sm:text-2xl">
+                  TOWA
+                </span>
+              </a>
+              <p className="mt-3 max-w-xs text-sm leading-relaxed text-towa-text-muted">
                 Tempat pulang buat obrolan random, mabar, dan cerita yang belum
                 sempat selesai.
               </p>
@@ -65,7 +77,7 @@ export function Footer() {
 
             <div className="inline-flex w-fit items-center gap-3 rounded-full border border-towa-border bg-towa-bg px-4 py-2.5 text-xs font-black shadow-sm transition-colors">
               <span className="relative flex size-2.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-rose-500 opacity-75" />
                 <span className="relative inline-flex size-2.5 rounded-full bg-rose-700" />
               </span>
               <span className="tracking-wider uppercase text-towa-text">
@@ -81,10 +93,10 @@ export function Footer() {
             <ul className="flex flex-col gap-3 text-sm font-bold text-towa-text-muted">
               <li>
                 <a
-                  href="#fitur"
+                  href="#tentang"
                   className="transition-colors hover:text-towa-text"
                 >
-                  Fasilitas Rumah
+                  Tentang
                 </a>
               </li>
               <li>
@@ -113,7 +125,7 @@ export function Footer() {
             <ul className="flex flex-col gap-3 text-sm font-bold text-towa-text-muted">
               <li>
                 <a
-                  href="https://discord.gg"
+                  href="https://discord.gg/mYFaDU77PT"
                   target="_blank"
                   rel="noreferrer"
                   className="inline-flex items-center gap-2 transition-colors hover:text-towa-text"
@@ -126,7 +138,7 @@ export function Footer() {
                   href="#"
                   className="inline-flex items-center gap-2 transition-colors hover:text-towa-text"
                 >
-                  <Video className="size-4" /> TikTok Clips
+                  <Video className="size-4" /> TikTok Clips (Soon)
                 </a>
               </li>
               <li>
@@ -134,7 +146,7 @@ export function Footer() {
                   href="#"
                   className="inline-flex items-center gap-2 transition-colors hover:text-towa-text"
                 >
-                  <Camera className="size-4" /> Instagram
+                  <CircleFadingPlus className="size-4" /> Instagram (Soon)
                 </a>
               </li>
             </ul>
@@ -150,15 +162,15 @@ export function Footer() {
                   href="#warga"
                   className="transition-colors hover:text-towa-text"
                 >
-                  Server Boosters
+                  Boosters & Donors
                 </a>
               </li>
               <li>
                 <a
-                  href="#warga"
+                  href="#momen"
                   className="transition-colors hover:text-towa-text"
                 >
-                  Donors / Support
+                  Kirim Momen
                 </a>
               </li>
               <li>
@@ -173,21 +185,31 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-towa-border/30 pt-8 sm:flex-row">
-          <p className="text-xs font-bold text-towa-text-muted">
-            Made with{" "}
-            <span className="text-towa-accent-2">aren latte less sugar</span> by
-            warga asbun.
-          </p>
+        <div className="...">
+          <p className="text-center text-xs text-towa-text-subtle sm:text-left">
+            <span className="font-bold text-towa-text">
+              © {currentYear} TOWA
+            </span>
+            <span className="mx-1.5 text-towa-text-subtle/50">|</span>
 
-          <button
-            onClick={scrollToTop}
-            type="button"
-            className="group inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg px-5 py-2.5 text-xs font-black text-towa-text shadow-sm transition-all hover:bg-towa-accent-2 hover:text-white"
-          >
-            <span>Kembali ke Atas</span>
-            <ArrowUp className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5" />
-          </button>
+            <motion.span
+              animate={{
+                backgroundPosition: ["200% 0", "-200% 0"],
+              }}
+              transition={{
+                duration: 3.5,
+                repeat: Infinity,
+                ease: "linear",
+              }}
+              style={{
+                backgroundImage:
+                  "linear-gradient(90deg, var(--towa-accent-2), var(--towa-accent), var(--towa-accent-2))",
+              }}
+              className="inline-block bg-[size:200%_auto] bg-clip-text font-extrabold text-transparent"
+            >
+              Made with Caramel Macchiato double-shot by warga asbun.
+            </motion.span>
+          </p>
         </div>
       </div>
     </footer>

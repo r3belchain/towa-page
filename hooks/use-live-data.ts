@@ -138,7 +138,7 @@ export function useRecentMembers(limit = 10) {
         .order("event_at", { ascending: false })
         .limit(limit);
       if (error) throw error;
-      return data ?? [];
+      return data ?? []; 
     },
     [],
   );
