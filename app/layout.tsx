@@ -8,7 +8,7 @@ const siteDescription =
 
 export const metadata: Metadata = {
   // Domain Utama
-  metadataBase: new URL("https://towaserver.online"),
+  metadataBase: new URL("https://wargatowa.online"),
 
   // Judul & Deskripsi Utama
   title: {
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "TOWA | Tongkrongan Warga Asbun",
     description: siteDescription,
-    url: "https://towaserver.online",
+    url: "https://wargatowa.online",
     siteName: "TOWA Server",
     locale: "id_ID",
     type: "website",
@@ -49,14 +49,12 @@ export const metadata: Metadata = {
     ],
   },
 
-
   twitter: {
     card: "summary_large_image",
     title: "TOWA | Tongkrongan Warga Asbun",
     description: siteDescription,
     images: ["/og-image.png"],
   },
-
 
   robots: {
     index: true,
