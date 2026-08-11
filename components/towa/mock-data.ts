@@ -122,25 +122,25 @@ export const artworks = [
     artist: "Joan",
     image: "/dc-assets/pamerkarya3.jpg",
     type: "image",
-    link: "/dc-assets/pamerkarya3.jpg", 
+    link: "/dc-assets/pamerkarya3.jpg",
   },
   {
     title: "My Original Character",
-    artist: "Naomi",
+    artist: "Noura",
     image: "/dc-assets/pamerkarya2.png",
     type: "image",
     link: "/dc-assets/pamerkarya2.png", // Link gambar full resolusi
   },
   {
     title: "Digital Illustration",
-    artist: "tristan",
+    artist: "Tristan",
     image: "/dc-assets/pamerkarya4.jpg",
     type: "image",
     link: "/dc-assets/pamerkarya4.jpg", // Link gambar full resolusi
   },
   {
     title: "Digital Painting",
-    artist: "eclipse",
+    artist: "Eclipse",
     image: "/dc-assets/pamerkarya5.png",
     type: "image",
     link: "/dc-assets/pamerkarya5.png", // Link gambar full resolusi
