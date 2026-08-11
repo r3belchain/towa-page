@@ -7,7 +7,12 @@ import { on } from "process";
 
 const useIsStaticRenderer = () => false;
 
-type GalleryImage = { src: string; srcSet?: string; alt?: string };
+type GalleryImage = {
+  src: string;
+  srcSet?: string;
+  alt?: string;
+  ratio?: number;
+};
 
 interface InfiniteGalleryProps {
   width?: string | number;
@@ -163,62 +168,78 @@ export default function InfiniteGallery(props: InfiniteGalleryProps) {
   const SCALE_MIN = 0.45;
   const SCALE_MAX = 1.6;
 
-  const generateCell = useMemo(() => {
-    return (gx: number, gy: number, octave: number): Tile[] => {
-      const seed = hash3(gx, gy, octave | 0, 0x9e3779b1);
-      const rand = mulberry32(seed);
-      const totalSubs = subN * subN;
-      const subs = new Array<number>(totalSubs);
-      for (let i = 0; i < totalSubs; i++) subs[i] = i;
-      for (let i = totalSubs - 1; i > 0; i--) {
-        const j = Math.floor(rand() * (i + 1));
-        const tmp = subs[i];
-        subs[i] = subs[j];
-        subs[j] = tmp;
-      }
-      const tiles: Tile[] = [];
-      const count = Math.min(effectivePerCell, totalSubs);
-      const pad = subSize * SUBCELL_INNER_PAD;
-      const innerRange = Math.max(0, subSize - pad * 2);
-      const cellX0 = gx * CELL_SIZE;
-      const cellY0 = gy * CELL_SIZE;
-      const wWorld = safeImageWidth / PX_PER_UNIT;
-      const hWorld = safeImageHeight / PX_PER_UNIT;
+ const generateCell = useMemo(() => {
+   return (gx: number, gy: number, octave: number): Tile[] => {
+     const seed = hash3(gx, gy, octave | 0, 0x9e3779b1);
+     const rand = mulberry32(seed);
+     const totalSubs = subN * subN;
+     const subs = new Array<number>(totalSubs);
+     for (let i = 0; i < totalSubs; i++) subs[i] = i;
+     for (let i = totalSubs - 1; i > 0; i--) {
+       const j = Math.floor(rand() * (i + 1));
+       const tmp = subs[i];
+       subs[i] = subs[j];
+       subs[j] = tmp;
+     }
 
-      for (let slot = 0; slot < count; slot++) {
-        const subIdx = subs[slot];
-        const sx = subIdx % subN;
-        const sy = Math.floor(subIdx / subN);
-        const wx = cellX0 + sx * subSize + pad + rand() * innerRange;
-        const wy = cellY0 + sy * subSize + pad + rand() * innerRange;
-        const bakedScale = SCALE_MIN + rand() * (SCALE_MAX - SCALE_MIN);
-        const imgIdx =
-          imagesCount > 0 ? Math.floor(rand() * imagesCount) % imagesCount : 0;
-        tiles.push({
-          wx,
-          wy,
-          cx: gx,
-          cy: gy,
-          slot,
-          octave,
-          imgIdx,
-          w: wWorld,
-          h: hWorld,
-          rot: 0,
-          bakedScale,
-        });
-      }
-      return tiles;
-    };
-  }, [
-    safeImages,
-    imagesCount,
-    safeImageWidth,
-    safeImageHeight,
-    subN,
-    subSize,
-    effectivePerCell,
-  ]);
+     const tiles: Tile[] = [];
+     const count = Math.min(effectivePerCell, totalSubs);
+     const pad = subSize * SUBCELL_INNER_PAD;
+     const innerRange = Math.max(0, subSize - pad * 2);
+     const cellX0 = gx * CELL_SIZE;
+     const cellY0 = gy * CELL_SIZE;
+
+   
+
+     for (let slot = 0; slot < count; slot++) {
+       const subIdx = subs[slot];
+       const sx = subIdx % subN;
+       const sy = Math.floor(subIdx / subN);
+       const wx = cellX0 + sx * subSize + pad + rand() * innerRange;
+       const wy = cellY0 + sy * subSize + pad + rand() * innerRange;
+       const bakedScale = SCALE_MIN + rand() * (SCALE_MAX - SCALE_MIN);
+       const imgIdx =
+         imagesCount > 0 ? Math.floor(rand() * imagesCount) % imagesCount : 0;
+
+    
+       const currentImg = safeImages[imgIdx];
+       let wPx = safeImageWidth;
+       let hPx = safeImageHeight;
+
+       if (currentImg && currentImg.ratio) {
+         const baseArea = safeImageWidth * safeImageHeight;
+         hPx = Math.sqrt(baseArea / currentImg.ratio);
+         wPx = hPx * currentImg.ratio;
+       }
+
+       const wWorld = wPx / PX_PER_UNIT;
+       const hWorld = hPx / PX_PER_UNIT;
+
+       tiles.push({
+         wx,
+         wy,
+         cx: gx,
+         cy: gy,
+         slot,
+         octave,
+         imgIdx,
+         w: wWorld, 
+         h: hWorld, 
+         rot: 0,
+         bakedScale,
+       });
+     }
+     return tiles;
+   };
+ }, [
+   safeImages,
+   imagesCount,
+   safeImageWidth,
+   safeImageHeight,
+   subN,
+   subSize,
+   effectivePerCell,
+ ]);
 
   useEffect(() => {
     const scene = sceneRef.current;

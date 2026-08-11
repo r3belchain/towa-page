@@ -89,6 +89,24 @@ export const moments = [
     size: "tall",
     ratio: 2.16,
   },
+  {
+    title: "Menjelajahi Samudra",
+    image: "/dc-assets/asset8.png",
+    size: "tall",
+    ratio: 2.16,
+  },
+  {
+    title: "Pejuang Code",
+    image: "/dc-assets/asset9.png",
+    size: "tall",
+    ratio: 2.16,
+  },
+  {
+    title: "On a generational run",
+    image: "/dc-assets/asset10.png",
+    size: "tall",
+    ratio: 2.16,
+  },
 ];
 
 export const artworks = [
@@ -104,7 +122,7 @@ export const artworks = [
     artist: "Joan",
     image: "/dc-assets/pamerkarya3.jpg",
     type: "image",
-    link: "/dc-assets/pamerkarya3.jpg", // Link video
+    link: "/dc-assets/pamerkarya3.jpg", 
   },
   {
     title: "My Original Character",

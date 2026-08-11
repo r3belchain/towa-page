@@ -7,7 +7,15 @@ import {
   useRef,
   type CSSProperties,
 } from "react";
-import { Music, Video, Image as ImageIcon, ExternalLink } from "lucide-react";
+
+import {
+  Music,
+  Video,
+  Image as ImageIcon,
+  ExternalLink,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
 interface Slide {
   title: string;
@@ -34,7 +42,7 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
   const n = slides.length;
   const loop = true;
 
-  const [active, setActive] = useState(Math.floor(n / 2)); 
+  const [active, setActive] = useState(Math.floor(n / 2));
 
   useEffect(() => {
     setActive((a) => Math.max(0, Math.min(n - 1, a)));
@@ -109,11 +117,28 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
 
   return (
     <div style={rootStyle} tabIndex={0} role="group" onKeyDown={onKeyDown}>
-      {/* ==================================================================== */}
-      {/* EFEK GRADASI MEMUDAR DI UJUNG KIRI & KANAN (EDGE SOFT FADE MASK)     */}
-      {/* ==================================================================== */}
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-gradient-to-r from-towa-bg via-towa-bg/70 to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-gradient-to-l from-towa-bg via-towa-bg/70 to-transparent" />
+
+      {/* EFEK GRADASI MEMUDAR DI UJUNG KIRI & KANAN (HANYA MUNCUL DI DESKTOP) */}
+
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-gradient-to-r from-towa-bg via-towa-bg/70 to-transparent hidden lg:block" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-gradient-to-l from-towa-bg via-towa-bg/70 to-transparent hidden lg:block" />
+      {/*  MOBILE ONLY: NAVIGATION BUTTONS (KIRI & KANAN)                    */}
+      <button
+        onClick={() => step(-1)}
+        aria-label="Karya Sebelumnya"
+        className="absolute left-2 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all active:scale-90 lg:hidden"
+      >
+        <ChevronLeft size={28} className="mr-0.5" />
+      </button>
+
+      <button
+        onClick={() => step(1)}
+        aria-label="Karya Selanjutnya"
+        className="absolute right-2 top-1/2 z-50 flex h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/60 text-white shadow-xl backdrop-blur-md transition-all active:scale-90 lg:hidden"
+      >
+        <ChevronRight size={28} className="ml-0.5" />
+      </button>
+  
 
       <div
         style={{
@@ -138,7 +163,6 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
           const ry = -rel * tilt;
           const rz = rel * sideTilt;
 
-          // Kalkulasi opasitas bertingkat: Kartu paling samping makin memudar (fade out)
           const cardOpacity = visible ? Math.max(0.2, 1 - ax * 0.35) : 0;
 
           const cardStyle: CSSProperties = {
@@ -199,15 +223,37 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
 
               {/* Info Karya Bawah */}
               <div
-                className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black via-black/60 to-transparent p-6 pt-16"
-                style={{ pointerEvents: "none" }}
+                className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black via-black/80 to-transparent p-6 pt-24"
+         
+                style={{ pointerEvents: isActive ? "auto" : "none" }}
               >
-                <h3 className="text-2xl font-black text-white drop-shadow-md">
+                <h3 className="text-2xl font-black leading-tight text-white drop-shadow-md">
                   {slide.title}
                 </h3>
                 <p className="mt-1 text-sm font-semibold text-gray-300">
                   By {slide.artist}
                 </p>
+
+                {/*  CTA BUTTON KHUSUS MOBILE (Selalu Tampil di Bawah Teks)  */}
+                {isActive && (
+                  <div className="mt-4 block lg:hidden">
+                    <a
+                      href={slide.link}
+                      target="_blank"
+                      rel="noreferrer"
+       
+                      onClick={(e) => e.stopPropagation()}
+                      className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-towa-accent-2 px-5 py-2.5 text-xs font-black text-white shadow-md transition-transform active:scale-95"
+                    >
+                      {slide.type === "spotify"
+                        ? "Putar di Spotify"
+                        : slide.type === "video"
+                          ? "Tonton Video"
+                          : "Lihat Penuh"}
+                      <ExternalLink size={14} />
+                    </a>
+                  </div>
+                )}
               </div>
 
               {/* Dim overlay untuk kartu tidak aktif */}
@@ -224,13 +270,14 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
 
               {/* CTA BUTTON JIKA KARTU AKTIF (Di-Hover) */}
               {isActive && (
-                <div className="group absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-[2px] transition-all duration-300 hover:opacity-100">
+             
+                <div className="group absolute inset-0 hidden lg:flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-[2px] transition-all duration-300 hover:opacity-100">
                   <a
                     href={slide.link}
                     target="_blank"
                     rel="noreferrer"
                     onClick={(e) => e.stopPropagation()}
-                    className="flex cursor-pointer items-center gap-3 rounded-full border border-white/20 bg-towa-accent-2 px-6 py-3 text-sm font-black text-white shadow-xl transition-transform hover:scale-110"
+                    className="flex cursor-pointer items-center gap-3 rounded-full border border-white/20 bg-towa-accent-2 px-6 py-3 text-sm font-black text-white shadow-xl transition-transform hover:scale-110 active:scale-95"
                   >
                     {slide.type === "spotify"
                       ? "Putar di Spotify"
