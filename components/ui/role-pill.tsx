@@ -25,7 +25,7 @@ export type RolePillMember = {
 
 const TONE_CLASSES: Record<string, string> = {
   default:
-    "border-towa-border bg-towa-bg-alt text-towa-text hover:border-towa-accent-2",
+    "border-towa-ink bg-towa-bg text-towa-text hover:border-towa-ink dark:!border-towa-accent-2 dark:!bg-[#12121e]/60 dark:!text-towa-text dark:!shadow-[0_0_10px_rgba(47,232,255,0.1)] dark:hover:!shadow-[0_0_20px_rgba(47,232,255,0.4)]",
   amber: "border-[#f0b673] bg-[#ffe8d1] text-[#a35a12] hover:border-[#c97a1f]",
   rose: "border-[#f0a3c4] bg-[#ffe1ee] text-[#a3255e] hover:border-[#c94b85]",
   royal:
@@ -90,7 +90,8 @@ export function RolePill({
           hover: { scale: 1.05 },
         }}
         transition={{ type: "spring", stiffness: 400, damping: 17 }}
-        className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border px-5 py-2.5 text-sm font-black ${TONE_CLASSES[tone]}`}
+
+        className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full border-2 px-5 py-2.5 text-sm font-black shadow-[2px_2px_0_var(--towa-ink)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--towa-ink)] dark:shadow-none dark:hover:!shadow-[0_0_15px_rgba(47,232,255,0.4)] ${TONE_CLASSES[tone]}`}
       >
         <motion.span
           aria-hidden="true"
@@ -99,7 +100,8 @@ export function RolePill({
           variants={{ rest: { scaleX: 0 }, hover: { scaleX: 1 } }}
           transition={{ duration: 0.25, ease: "easeOut" }}
         />
-        <span className="relative z-10 flex items-center gap-2 transition-colors duration-200 group-hover:text-white">
+
+        <span className="relative z-10 flex items-center gap-2 transition-colors duration-200 group-hover:text-towa-ink">
           {icon && (
             <motion.span
               className="inline-flex"
@@ -116,9 +118,10 @@ export function RolePill({
             </motion.span>
           )}
           {label}
-          <span className="text-xs font-bold opacity-60">{members.length}</span>
+          <span className="text-xs font-bold opacity-60 group-hover:opacity-100">{members.length}</span>
         </span>
       </motion.button>
+      
       <FloatingPortal>
         <AnimatePresence>
           {open && (
@@ -133,21 +136,24 @@ export function RolePill({
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.92, y: 4 }}
                 transition={{ duration: 0.15, ease: "easeOut" }}
-                className="w-64 rounded-2xl border-2 border-towa-ink bg-towa-bg p-3 shadow-[5px_5px_0_var(--towa-ink)]"
+                className="w-64 rounded-2xl border-2 border-towa-ink bg-towa-bg p-3 shadow-[5px_5px_0_var(--towa-ink)] transition-colors duration-300 dark:!border-towa-accent-2/50 dark:!bg-[#0a0a12]/90 dark:!shadow-[0_0_20px_rgba(47,232,255,0.2)] dark:backdrop-blur-md"
               >
                 <p className="px-1 pb-2 text-[11px] font-black uppercase tracking-wider text-towa-accent-2">
                   {label} · {members.length} orang
                 </p>
-                <div className="flex max-h-64 flex-col gap-0.5 overflow-y-auto">
+                <div className="flex max-h-64 flex-col gap-0.5 overflow-y-auto towa-scrollbar">
                   {members.map((member) => (
                     <div
                       key={member.discordUserId}
-                      className="flex items-center gap-2 rounded-lg px-1 py-1.5 hover:bg-towa-bg-alt"
+                      className="flex items-center gap-2 rounded-lg px-1 py-1.5 transition-colors hover:bg-towa-bg-alt dark:hover:bg-towa-accent-2/10"
                     >
                       <img
                         src={member.avatarUrl}
                         alt=""
-                        className="size-8 shrink-0 rounded-full object-cover"
+                        className="size-8 shrink-0 rounded-full border border-towa-border/50 object-cover dark:border-transparent"
+                        onError={(e) => {
+                          e.currentTarget.style.display = "none";
+                        }}
                       />
                       <p className="truncate text-sm font-bold text-towa-text">
                         {member.username}

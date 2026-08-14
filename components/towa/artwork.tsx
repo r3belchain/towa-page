@@ -8,7 +8,7 @@ export function Artwork() {
   return (
     <section
       id="karya"
-      className="bg-towa-bg py-24 text-towa-text transition-colors duration-500"
+      className="w-full bg-towa-bg py-24 text-towa-text transition-colors duration-500 dark:bg-transparent"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         {/* Heading Section */}

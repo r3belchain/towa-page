@@ -3,7 +3,7 @@
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@custom-variant dark (&:is([data-theme="cyberpunk"] *));
 
 @theme inline {
   --color-background: var(--background);
@@ -190,9 +190,76 @@ h4 {
   left: 49px;
 }
 
+/* =========================================
+   🌟 GLOBAL SCROLLBAR (TOWA DUAL-IDENTITY)
+   ========================================= */
+
+/* 1. Dukungan untuk Mozilla Firefox */
+html {
+  scrollbar-width: auto;
+  scrollbar-color: var(--towa-accent) var(--towa-bg-alt);
+}
+
+html[data-theme="cyberpunk"] {
+  scrollbar-color: var(--towa-accent-2) var(--towa-bg);
+}
+
+/* 2. Webkit (Chrome, Edge, Safari) - LIGHT MODE (Neo-Brutalist) */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--towa-bg-alt);
+  /* Garis tegas ala komik menggunakan warna tinta hitam TOWA */
+  border-left: 2px solid #1a1a1a; 
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--towa-accent); /* Kuning TOWA */
+  /* Border tebal dan sudut kotak tajam untuk Neo-Brutalisme */
+  border: 2px solid #1a1a1a;
+  border-radius: 0px; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--towa-accent-2); 
+}
+
+/* 3. Webkit - DARK MODE (Cyberpunk) */
+html[data-theme="cyberpunk"] ::-webkit-scrollbar-track {
+  background-color: var(--towa-bg);
+
+  border-left: 1px solid var(--towa-border);
+}
+
+html[data-theme="cyberpunk"] ::-webkit-scrollbar-thumb {
+  background-color: var(--towa-accent); 
+
+  border: 1px solid var(--towa-accent-2); 
+  border-radius: 8px;
+}
+
+html[data-theme="cyberpunk"] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--towa-accent-2); 
+}
+
+
+   /* MICRO SCROLLBAR (.towa-scrollbar) */
+
+
+.towa-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--towa-accent) transparent;
+}
+
+html[data-theme="cyberpunk"] .towa-scrollbar {
+  scrollbar-color: var(--towa-accent-2) transparent;
+}
 
 .towa-scrollbar::-webkit-scrollbar {
-  width: 5px; 
+  width: 6px; 
 }
 
 .towa-scrollbar::-webkit-scrollbar-track {
@@ -201,17 +268,10 @@ h4 {
 }
 
 .towa-scrollbar::-webkit-scrollbar-thumb {
-  background-color: var(--towa-border);
+  background-color: var(--towa-accent);
   border-radius: 10px;
-  border: 1px solid transparent; 
-  background-clip: padding-box;
 }
 
-.towa-scrollbar::-webkit-scrollbar-thumb:hover {
+html[data-theme="cyberpunk"] .towa-scrollbar::-webkit-scrollbar-thumb {
   background-color: var(--towa-accent-2);
-}
-
-.towa-scrollbar {
-  scrollbar-width: thin;
-  scrollbar-color: var(--towa-border) transparent;
 }

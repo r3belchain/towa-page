@@ -5,39 +5,48 @@ export const communityStats = [
   { value: "1.2K", label: "Online" },
   { value: "248", label: "Boosters" },
 ];
-
 export const featureItems = [
   {
+    title: "Gaming & Mabar",
+    description:
+      "Cari teman mabar 24 jam. Mulai dari Mobile Legends, Valorant, Project SEKAI, sampai game co-op santai.",
     icon: "gamepad",
-    title: "Mabar",
-    description: "Mobile Legends, Roblox, Valorant, dan game lainnya.",
+    imageLight: "/features/gaming-light.png",
+    imageDark: "/features/gaming-dark.png",
   },
   {
-    icon: "sparkles",
     title: "Anime Talk",
-    description: "Bahas anime seru favorit kamu bareng warga lain.",
+    description:
+      "Bahas anime seru favorit kamu bareng warga lain. Dari anime musiman sampai rekomendasi manga.",
+    icon: "sparkles",
+    imageLight: "/features/anime-light.png",
+    imageDark: "/features/anime-dark.png",
   },
   {
-    icon: "users",
-    title: "Relasi",
-    description: "Temukan teman baru dan bangun pertemanan yang hangat.",
-  },
-  {
-    icon: "message",
-    title: "Asbun",
-    description: "Obrolan bebas dan santai, dari serius sampai random.",
-  },
-  {
-    icon: "camera",
     title: "Kirim Momen",
-    description: "Bagikan momen keseharianmu ke seluruh warga TOWA.",
+    description:
+      "Bagikan momen keseharianmu ke seluruh warga TOWA. Dari foto jalan-jalan, makanan, sampai hal random.",
+    icon: "camera",
+    imageLight: "/features/kirimmomen-light.png",
+    imageDark: "/features/kirimmomen-dark.png",
   },
   {
-    icon: "palette",
     title: "Pamer Karya",
-    description: "Tunjukkan hasil karya dan kreativitasmu ke warga lain.",
+    description:
+      "Tunjukkan hasil karya dan kreativitasmu ke warga lain. Mulai dari digital art, foto, editan, atau proyek iseng.",
+    icon: "palette",
+    imageLight: "/features/pamerkarya-light.png",
+    imageDark: "/features/pamerkarya-dark.png",
+  },
+  {
+    title: "Asbun Apapun",
+    description: "Obrolan bebas dan santai, dari serius sampai random. Warga siap dengerin!",
+    icon: "message",
+    imageLight: "/features/asbun-light.png",
+    imageDark: "/features/asbun-dark.png",
   },
 ];
+
 
 export const voiceChannels = [
   { name: "Ruang Tengah", people: 18, avatars: ["Bima", "Naya", "Raka"] },

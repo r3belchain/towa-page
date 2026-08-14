@@ -3,20 +3,16 @@
 import { Logo } from "@/components/ui/logo";
 import { useTheme } from "@/lib/theme-provider";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowUpRight, Zap, Sun } from "lucide-react";
+import { ArrowUpRight, Sun, Zap } from "lucide-react";
 import { useState } from "react";
 
-// ==========================================
-// 🔹 KOMPONEN TOGGLE (ANTI-BUG MOBILE)
-// ==========================================
 function CyberpunkToggle() {
-  const { theme, toggleTheme } = useTheme(); 
+  const { theme, toggleTheme } = useTheme();
   const shouldReduceMotion = useReducedMotion();
   const isCyberpunk = theme === "cyberpunk";
 
   return (
     <>
-      {/* 💻 VERSI DESKTOP (Framer Motion - Tetap Aman) */}
       <motion.button
         type="button"
         onClick={toggleTheme}
@@ -28,7 +24,7 @@ function CyberpunkToggle() {
             ? { duration: 0 }
             : { type: "spring", stiffness: 500, damping: 12 }
         }
-        className="hidden md:inline-flex items-center gap-2 rounded-full border border-towa-border bg-towa-bg/50 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-towa-text transition hover:border-towa-accent-2 hover:bg-towa-bg"
+        className="hidden md:inline-flex items-center gap-2 rounded-full border border-towa-ink bg-towa-bg/50 px-3 py-1.5 text-xs font-black uppercase tracking-wider text-towa-text transition-all duration-300 hover:border-towa-ink hover:bg-towa-bg dark:border-towa-accent-2 dark:bg-transparent dark:text-towa-accent-2 dark:hover:bg-towa-accent-2/10 dark:hover:shadow-[0_0_15px_rgba(47,232,255,0.4)]"
       >
         <Zap className="size-3.5" />
         {isCyberpunk ? "Light mode" : "Dark mode"}
@@ -38,16 +34,11 @@ function CyberpunkToggle() {
       <button
         type="button"
         onClick={(e) => {
-          // Jaring pengaman: Untuk nge-test di Console apakah klik masuk
-          console.log("👉 Tombol Mobile Ditekan!"); 
+          console.log("👉 Tombol Mobile Ditekan!");
           toggleTheme();
         }}
         aria-label="Toggle Theme"
         aria-pressed={isCyberpunk}
-        // 1. Pakai tag <button> biasa, BUKAN <motion.button>
-        // 2. Tambah 'relative z-50' agar tidak tertimpa elemen gaib
-        // 3. Tambah 'touch-manipulation' agar klik instan tanpa delay 300ms
-        // 4. Efek pantulan diatur murni pakai CSS (active:scale-95)
         className="relative z-50 flex touch-manipulation md:hidden size-9 shrink-0 items-center justify-center rounded-full border-2 border-towa-ink bg-towa-bg shadow-[2px_2px_0_var(--towa-ink)] transition-all hover:shadow-[4px_4px_0_var(--towa-ink)] active:scale-95 active:shadow-[1px_1px_0_var(--towa-ink)]"
       >
         {isCyberpunk ? (
@@ -122,10 +113,11 @@ export function Navbar() {
 
         {/* SISI KANAN: TOGGLE & JOIN SERVER */}
         <div className="flex items-center gap-3">
+          {/* Toggle tetap ada di semua perangkat */}
           <CyberpunkToggle />
 
           <motion.a
-            className="inline-flex shrink-0 items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
+            className="hidden md:inline-flex shrink-0 items-center gap-2 rounded-full bg-towa-accent px-4 py-1.5 text-sm font-black text-towa-ink shadow-[2px_2px_0_var(--towa-ink)] transition hover:shadow-[4px_4px_0_var(--towa-ink)] active:shadow-[1px_1px_0_var(--towa-ink)]"
             href="https://discord.gg/SZbfKfU2NY"
             target="_blank"
             rel="noreferrer"

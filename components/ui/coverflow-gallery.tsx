@@ -119,10 +119,10 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
     <div style={rootStyle} tabIndex={0} role="group" onKeyDown={onKeyDown}>
 
       {/* EFEK GRADASI MEMUDAR DI UJUNG KIRI & KANAN (HANYA MUNCUL DI DESKTOP) */}
-
       <div className="pointer-events-none absolute inset-y-0 left-0 z-20 w-32 bg-gradient-to-r from-towa-bg via-towa-bg/70 to-transparent hidden lg:block" />
       <div className="pointer-events-none absolute inset-y-0 right-0 z-20 w-32 bg-gradient-to-l from-towa-bg via-towa-bg/70 to-transparent hidden lg:block" />
-      {/*  MOBILE ONLY: NAVIGATION BUTTONS (KIRI & KANAN)                    */}
+      
+      {/* MOBILE ONLY: NAVIGATION BUTTONS (KIRI & KANAN) */}
       <button
         onClick={() => step(-1)}
         aria-label="Karya Sebelumnya"
@@ -138,7 +138,6 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
       >
         <ChevronRight size={28} className="ml-0.5" />
       </button>
-  
 
       <div
         style={{
@@ -165,6 +164,7 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
 
           const cardOpacity = visible ? Math.max(0.2, 1 - ax * 0.35) : 0;
 
+   
           const cardStyle: CSSProperties = {
             position: "absolute",
             left: "50%",
@@ -173,7 +173,7 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
             height: cardHeight,
             borderRadius: radius,
             overflow: "hidden",
-            transformStyle: "preserve-3d",
+
             transformOrigin: "center center",
             transform: `translate(-50%, -50%) translateX(${tx}px) translateZ(${tz}px) rotateY(${ry}deg) rotateZ(${rz}deg) scale(${sc})`,
             transition: transitionCss,
@@ -190,7 +190,13 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
           };
 
           return (
-            <div key={i} style={cardStyle} onClick={() => handleCardClick(i)}>
+            <div
+              key={i}
+              style={cardStyle}
+              onClick={() => handleCardClick(i)}
+    
+              className="lg:[transform-style:preserve-3d] max-lg:[transform-style:flat] max-lg:[-webkit-mask-image:-webkit-radial-gradient(white,black)]"
+            >
               {/* Gambar Cover */}
               <img
                 src={slide.image}
@@ -224,7 +230,6 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
               {/* Info Karya Bawah */}
               <div
                 className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-gradient-to-t from-black via-black/80 to-transparent p-6 pt-24"
-         
                 style={{ pointerEvents: isActive ? "auto" : "none" }}
               >
                 <h3 className="text-2xl font-black leading-tight text-white drop-shadow-md">
@@ -234,14 +239,13 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
                   By {slide.artist}
                 </p>
 
-                {/*  CTA BUTTON KHUSUS MOBILE (Selalu Tampil di Bawah Teks)  */}
+                {/*  CTA BUTTON KHUSUS MOBILE  */}
                 {isActive && (
                   <div className="mt-4 block lg:hidden">
                     <a
                       href={slide.link}
                       target="_blank"
                       rel="noreferrer"
-       
                       onClick={(e) => e.stopPropagation()}
                       className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-towa-accent-2 px-5 py-2.5 text-xs font-black text-white shadow-md transition-transform active:scale-95"
                     >
@@ -256,7 +260,7 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
                 )}
               </div>
 
-              {/* Dim overlay untuk kartu tidak aktif */}
+
               <div
                 style={{
                   position: "absolute",
@@ -268,9 +272,8 @@ export default function CoverflowGallery({ slides }: CoverflowProps) {
                 }}
               />
 
-              {/* CTA BUTTON JIKA KARTU AKTIF (Di-Hover) */}
+
               {isActive && (
-             
                 <div className="group absolute inset-0 hidden lg:flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-[2px] transition-all duration-300 hover:opacity-100">
                   <a
                     href={slide.link}

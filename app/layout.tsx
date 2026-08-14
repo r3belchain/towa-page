@@ -3,6 +3,9 @@ import { Analytics } from "@vercel/analytics/next";
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
+import MobileFloatingCTA from "@/components/ui/mobile-floating-cta";
+import DarkGridSpotlight from "@/components/ui/dark-grid-spotlight";
+
 const siteDescription =
   "Komunitas Discord Indonesia tempat ngobrol santai, obrolan asbun, mabar game, dan nongkrong online 24 jam. Bergabunglah dengan Warga TOWA sekarang!";
 
@@ -93,10 +96,15 @@ export default function RootLayout({
   };
 
   return (
-    <html lang="id" className="bg-[#fffdf7]" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider>
-          {children}
+          <DarkGridSpotlight />
+          <div className="relative z-10 flex min-h-screen flex-col">
+            {children}
+          </div>
+
+          <MobileFloatingCTA />
           {process.env.NODE_ENV === "production" && <Analytics />}
         </ThemeProvider>
 

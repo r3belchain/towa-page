@@ -124,7 +124,8 @@ const FALLBACK_BOTTOM: ImageInput[] = [
 
 const MAX_FADE = 40;
 const PX_PER_SPEED = 14;
-const CARD_SHADOW = "0 18px 42px rgba(22, 24, 29, 0.14)";
+
+// 🔹 PERUBAHAN 1: CARD_SHADOW asli milik Originkit sudah AKU HAPUS dari sini.
 
 function resolveImageSrc(item: unknown): string | undefined {
   const image = (item as ImageInput)?.image;
@@ -273,6 +274,8 @@ function TickerRow({
             ref={(el) => {
               itemRefs.current[index] = el;
             }}
+  
+            className="border-2 border-towa-ink bg-towa-bg shadow-[4px_5px_0_var(--towa-ink)] transition-colors duration-500 dark:!border-towa-accent-2/60 dark:!bg-[#0a0a12] dark:!shadow-[0_0_15px_rgba(47,232,255,0.25)]"
             style={{
               position: "absolute",
               left: 0,
@@ -280,7 +283,6 @@ function TickerRow({
               width: cardWidth,
               height: cardHeight,
               borderRadius: radius,
-              boxShadow: CARD_SHADOW,
               overflow: "hidden",
               willChange: "transform",
               transform: `translate3d(${at.x}px, ${at.y}px, 0)`,

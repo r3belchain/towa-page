@@ -62,14 +62,11 @@ export function TeamAndBoosters() {
   return (
     <section
       id="warga"
-      className="w-full bg-towa-bg-alt py-24 transition-colors duration-500"
+      className="w-full bg-towa-bg-alt py-24 transition-colors duration-500 dark:bg-transparent"
     >
       <div className="mx-auto max-w-7xl px-5 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-[1.1fr_.9fr]">
-          {/* ========================================== */}
-          {/* BAGIAN KIRI: RUKUN WARGA */}
-          {/* ========================================== */}
-          <div>
+          <div className="relative h-fit lg:sticky lg:top-32">
             <SectionHeading
               eyebrow="Yang jaga rumah"
               title="Rukun Warga"
@@ -107,10 +104,7 @@ export function TeamAndBoosters() {
             </div>
           </div>
 
-          {/* ========================================== */}
-          {/* BAGIAN KANAN: DONORS & BOOSTERS */}
-          {/* ========================================== */}
-          <div className="flex h-fit flex-col rounded-3xl border-2 border-towa-border bg-towa-bg p-7 shadow-sm transition-colors duration-500">
+          <div className="flex h-fit flex-col rounded-3xl border-2 border-towa-ink bg-towa-bg p-7 shadow-[8px_8px_0_var(--towa-ink)] transition-all duration-500 dark:!border-towa-accent-2/50 dark:!bg-[#0a0a12]/80 dark:!shadow-[0_0_30px_rgba(47,232,255,0.1)]">
             <Trophy className="size-9 text-towa-accent-2" />
             <p className="mt-6 text-xs font-black uppercase tracking-[.2em] text-towa-accent-2">
               Support system
@@ -153,7 +147,8 @@ export function TeamAndBoosters() {
             </div>
 
             {/* 2. SERVER BOOSTERS DI BAWAH (Dengan Scroll & Garis Batas) */}
-            <div className="mt-6 flex min-h-0 flex-col border-t border-towa-border pt-6 transition-colors duration-500">
+        
+            <div className="mt-6 flex min-h-0 flex-col border-t border-towa-border pt-6 transition-colors duration-500 dark:!border-towa-accent-2/30">
               <p className="mb-3 text-xs font-black uppercase tracking-wider text-towa-text-subtle">
                 Server Boosters
               </p>
@@ -168,12 +163,12 @@ export function TeamAndBoosters() {
                 {boosters.map((booster) => (
                   <span
                     key={booster.discord_user_id}
-                    className="inline-flex shrink-0 items-center gap-2 rounded-full border border-towa-border bg-towa-bg-alt py-1 pl-1 pr-3 text-sm font-bold text-towa-text shadow-sm transition-all duration-300 hover:scale-105 hover:border-towa-accent-2"
+                    className="group inline-flex shrink-0 cursor-pointer items-center gap-2 rounded-full border-2 border-towa-ink bg-towa-bg py-1 pl-1 pr-3 text-sm font-bold text-towa-text shadow-[2px_2px_0_var(--towa-ink)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[4px_4px_0_var(--towa-ink)] dark:!border-towa-accent-2 dark:!bg-[#12121e]/60 dark:!text-towa-text dark:!shadow-[0_0_10px_rgba(47,232,255,0.1)] dark:hover:!shadow-[0_0_20px_rgba(47,232,255,0.4)]"
                   >
                     <img
                       src={booster.avatar_url}
                       alt=""
-                      className="size-7 rounded-full object-cover"
+                      className="size-7 rounded-full border border-towa-ink object-cover transition-transform duration-300 group-hover:rotate-6 dark:border-transparent"
                       onError={(e) => {
                         e.currentTarget.style.display = "none";
                       }}
