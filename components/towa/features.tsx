@@ -82,18 +82,18 @@ export function Features() {
                 </div>
 
                 {/* BAGIAN KANAN: Mockup Gambar Dual-Identity */}
-                <div 
+                <div
                   className="relative mx-5 flex min-h-[300px] w-auto overflow-hidden rounded-2xl border-2 border-solid border-towa-ink/30 bg-towa-accent/5 transition-colors dark:!border-towa-accent-2/40 dark:bg-black/40 md:mx-0 md:min-h-[450px] md:w-7/12"
                   style={{
-               
-                    WebkitMaskImage: "linear-gradient(to bottom, black 50%, transparent 100%)",
-                    maskImage: "linear-gradient(to bottom, black 50%, transparent 100%)"
+                    WebkitMaskImage:
+                      "linear-gradient(to bottom, black 50%, transparent 100%)",
+                    maskImage:
+                      "linear-gradient(to bottom, black 50%, transparent 100%)",
                   }}
                 >
-                  
                   {/* Efek Grid Belakang */}
                   <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px] dark:bg-[linear-gradient(to_right,rgba(47,232,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(47,232,255,0.05)_1px,transparent_1px)]" />
-                  
+
                   {/* 🚨 GAMBAR UNTUK LIGHT MODE 🚨 */}
                   {item.imageLight && (
                     <img
@@ -103,7 +103,6 @@ export function Features() {
                     />
                   )}
 
-         
                   {item.imageDark && (
                     <img
                       src={item.imageDark}
@@ -112,8 +111,7 @@ export function Features() {
                     />
                   )}
 
-           
-                  {(!item.imageLight && !item.imageDark) && (
+                  {!item.imageLight && !item.imageDark && (
                     <div className="relative z-10 flex h-full w-full flex-col items-center justify-center gap-3 text-center opacity-60 transition-colors dark:opacity-80">
                       <ImageIcon className="size-12 text-towa-text-muted dark:text-towa-accent-2/60" />
                       <p className="text-base font-bold text-towa-text-muted dark:text-towa-accent-2/60">
@@ -121,7 +119,6 @@ export function Features() {
                       </p>
                     </div>
                   )}
-
                 </div>
               </motion.article>
             );

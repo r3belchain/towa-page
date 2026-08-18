@@ -85,9 +85,6 @@ export function Footer() {
             </div>
           </div>
 
-          {/* ========================================== */}
-          {/* MENU NAVIGASI (Dengan efek Hover Neon)     */}
-          {/* ========================================== */}
           <div className="flex flex-col gap-4 lg:ml-8">
             <p className="text-xs font-black uppercase tracking-[0.2em] text-towa-accent-2">
               Navigasi
@@ -137,10 +134,10 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.tiktok.com/@wargatowa"
                   className="inline-flex items-center gap-2 transition-all duration-300 hover:text-towa-ink dark:hover:text-towa-accent-2 dark:hover:drop-shadow-[0_0_8px_rgba(47,232,255,0.6)]"
                 >
-                  <Video className="size-4" /> TikTok Clips (Soon)
+                  <Video className="size-4" /> TikTok Clips
                 </a>
               </li>
               <li>
